@@ -50,7 +50,7 @@ if (isset($_POST['simpan'])) {
                     echo "<script language='javascript'>alert('Data Gagal Disimpan'); document.location='tambah_pegawai.php';</script>";
                 }
             } else {
-                // echo "<script language='javascript'>alert('EKSTENSI FILE YANG DI UPLOAD TIDAK DI PERBOLEHKAN'); document.location='tambah_pegawai.php';</script>";
+                echo "<script language='javascript'>alert('EKSTENSI FILE YANG DI UPLOAD TIDAK DI PERBOLEHKAN'); document.location='tambah_pegawai.php';</script>";
             }
         }
     }

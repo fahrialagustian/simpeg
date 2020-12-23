@@ -83,18 +83,25 @@ $dt = mysqli_fetch_array($sql);
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-header p-2">
+                            <?php  
+                            if(isset($_GET['tab'])){
+                                $tab = $_GET['tab'];
+                            }else{
+                                $tab ='biodata';
+                            }
+                            ?>
                             <ul class="nav nav-pills">
-                                <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Bio Data</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#pendidikan" data-toggle="tab">Pendidikan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#pekerjaan" data-toggle="tab">Pekerjaan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#pelatihan" data-toggle="tab">Pelatihan</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#keluarga" data-toggle="tab">Keluarga</a></li>
-                                <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Setting</a></li>
+                                <li class="nav-item"><a class="nav-link <?php echo $tab=='biodata'?'active':null ?> " href="#biodata" data-toggle="tab">Bio Data</a></li>
+                                <li class="nav-item"><a class="nav-link <?php echo $tab=='pendidikan'?'active':null ?>" href="#pendidikan" data-toggle="tab">Pendidikan</a></li>
+                                <li class="nav-item"><a class="nav-link <?php echo $tab=='pekerjaan'?'active':null ?>" href="#pekerjaan" data-toggle="tab">Pekerjaan</a></li>
+                                <li class="nav-item"><a class="nav-link <?php echo $tab=='pelatihan'?'active':null ?>" href="#pelatihan" data-toggle="tab">Pelatihan</a></li>
+                                <li class="nav-item"><a class="nav-link <?php echo $tab=='keluarga'?'active':null ?>" href="#keluarga" data-toggle="tab">Keluarga</a></li>
+                                <li class="nav-item"><a class="nav-link <?php echo $tab=='settings'?'active':null ?>" href="#settings" data-toggle="tab">Setting</a></li>
                             </ul>
                         </div><!-- /.card-header -->
                         <div class="card-body">
                             <div class="tab-content">
-                                <div class="active tab-pane" id="activity">
+                                <div class="<?php echo $tab=='biodata'?'active':null ?> tab-pane" id="biodata">
                                     <!-- Post -->
                                     <div class="post">
                                         <div class="user-block">
@@ -208,11 +215,11 @@ $dt = mysqli_fetch_array($sql);
                                     <!-- /.post -->
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="pendidikan">
+                                <div class="<?php echo $tab=='pendidikan'?'active':null ?> tab-pane" id="pendidikan">
                                     <!-- The timeline -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <a href="tambah_pegawai.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Pendidikan</button></a>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal_pendidikan"><i class="fa fa-plus"></i> Pendidikan</button>
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
@@ -220,28 +227,37 @@ $dt = mysqli_fetch_array($sql);
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>Tingakt</th>
+                                                        <th>Nama Instansi/Nama Sekolah</th>
+                                                        <th>Jurusan</th>
+                                                        <th>Akreditasi</th>
+                                                        <th>Nomor Ijazah</th>
+                                                        <th>Tanggal Ijazah</th>
+                                                        <th>File Ijazah</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
+                                                    $nip = $_GET['id'];
                                                     $no = 1;
-                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
-                                                    while ($dt = mysqli_fetch_array($sql)) {
+                                                    $sql1 = mysqli_query($koneksi, "SELECT riwayat_pendidikan.id_rp, riwayat_pendidikan.nama_sekolah,riwayat_pendidikan.jurusan, riwayat_pendidikan.akreditasi, riwayat_pendidikan.nomor_ijazah, riwayat_pendidikan.tgl_ijazah, riwayat_pendidikan.file_ijazah, tingkat.id_tingkat, tingkat.tingkat FROM tingkat join riwayat_pendidikan on tingkat.id_tingkat=riwayat_pendidikan.id_tingkat where riwayat_pendidikan.nip='$nip'") or die(mysqli_error($koneksi));
+                                                    while ($data = mysqli_fetch_array($sql1)) {
                                                     ?>
                                                         <tr>
-                                                            <td><?php echo $no++ ?></td>
-                                                            <td><?php echo $dt['nip'] ?></td>
-                                                            <td><?php echo $dt['nama_pegawai'] ?></td>
+                                                            <td><?php echo $id ?></td>
+                                                            <td><?php echo $data['tingkat'] ?></td>
+                                                            <td><?php echo $data['nama_sekolah'] ?></td>
+                                                            <td><?php echo $data['jurusan'] ?></td>
+                                                            <td><?php echo $data['akreditasi'] ?></td>
+                                                            <td><?php echo $data['nomor_ijazah'] ?></td>
+                                                            <td><?php echo $data['tgl_ijazah'] ?></td>
+                                                            <td>-</td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['id_rp'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['id_rp'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -253,8 +269,13 @@ $dt = mysqli_fetch_array($sql);
                                                 <tfoot>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>Tingakt</th>
+                                                        <th>Nama Instansi/Nama Sekolah</th>
+                                                        <th>Jurusan</th>
+                                                        <th>Akreditasi</th>
+                                                        <th>Nomor Ijazah</th>
+                                                        <th>Tanggal Ijazah</th>
+                                                        <th>File Ijazah</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
@@ -264,7 +285,7 @@ $dt = mysqli_fetch_array($sql);
                                     </div>
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="pekerjaan">
+                                <div class="<?php echo $tab=='pekerjaan'?'active':null ?> tab-pane" id="pekerjaan">
                                     <!-- The timeline -->
                                     <div class="card">
                                         <div class="card-header">
@@ -320,7 +341,7 @@ $dt = mysqli_fetch_array($sql);
                                     </div>
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="pelatihan">
+                                <div class="<?php echo $tab=='pelatihan'?'active':null ?> tab-pane" id="pelatihan">
                                     <!-- The timeline -->
                                     <div class="card">
                                         <div class="card-header">
@@ -376,7 +397,7 @@ $dt = mysqli_fetch_array($sql);
                                     </div>
                                 </div>
                                 <!-- /.tab-pane -->
-                                <div class="tab-pane" id="keluarga">
+                                <div class="<?php echo $tab=='keluarga'?'active':null ?> tab-pane" id="keluarga">
                                     <!-- The timeline -->
                                     <div class="card">
                                         <div class="card-header">
@@ -539,7 +560,7 @@ $dt = mysqli_fetch_array($sql);
                                 </div>
                                 <!-- /.tab-pane -->
 
-                                <div class="tab-pane" id="settings">
+                                <div class="<?php echo $tab=='settings'?'active':null ?> tab-pane" id="settings">
                                     <form class="form-horizontal">
                                         <div class="form-group row">
                                             <label for="inputName" class="col-sm-2 col-form-label">Name</label>
@@ -602,6 +623,75 @@ $dt = mysqli_fetch_array($sql);
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<!-- Modal Pendidikan -->
+<div class="modal fade bd-example-modal-lg" id="modal_pendidikan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align: center;" id="modal_pendidikan">RIWAYAT PENDIDIKAN</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="proses_tambah_pendidikan.php" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label>Tingkat</label>
+                        <select class="form-control select2" name="id_tingkat" style="width: 100%;">
+                            <option selected="selected" disabled>--Pilih Tingkat--</option>
+                            <?php
+                            $sql = mysqli_query($koneksi, "SELECT * FROM tingkat order by tingkat ASC") or die(mysqli_error($koneksi));
+                            while ($tingkat = mysqli_fetch_array($sql)) {
+                            ?>
+                                <option value="<?php echo $tingkat['id_tingkat'] ?>"><?php echo $tingkat['tingkat'] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_sekolah" class="col-form-label">Nama Sekolah</label>
+                        <input type="text" class="form-control" name="nama_sekolah" id="nama_sekolah">
+
+                        <input type="hidden" class="form-control" name="nip" value="<?php echo $id ?>" id="nama_sekolah">
+                    </div>
+                    <div class="form-group">
+                        <label for="jurusan" class="col-form-label">Jurusan</label>
+                        <input type="text" class="form-control" name="jurusan" id="jurusan">
+                        <small class="badge badge-danger">* Isi dengan - jika tidak ada jurusan</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="akreditasi" class="col-form-label">Akreditasi</label>
+                        <input type="text" class="form-control" name="akreditasi" id="akreditasi">
+                        <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="no_ijazah" class="col-form-label">Nomor Ijazah</label>
+                        <input type="text" class="form-control" name="no_ijazah" id="no_ijazah">
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_ijazah" class="col-form-label">Tanggal Ijazah</label>
+                        <input type="date" class="form-control" name="tgl_ijazah" id="tgl_ijazah">
+                    </div>
+                    <div class="form-group">
+                        <label for="file_ijazah" class="col-form-label">File Ijazah</label>
+                        <input type="file" class="form-control" name="file_ijazah" id="file_ijazah">
+                        <small class="badge badge-danger">* Format file .pdf</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php
 include "../komponen/footer.php";
 ?>
