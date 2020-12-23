@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Des 2020 pada 01.28
--- Versi server: 10.4.6-MariaDB
--- Versi PHP: 7.3.8
+-- Waktu pembuatan: 23 Des 2020 pada 04.15
+-- Versi server: 10.3.16-MariaDB
+-- Versi PHP: 7.3.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -60,7 +60,44 @@ CREATE TABLE `akun` (
 
 INSERT INTO `akun` (`id_akun`, `username`, `password`, `level`, `status`) VALUES
 (1, 'Admin', 'e3afed0047b08059d0fada10f400c1e5', 'Admin', 'Aktif'),
-(3, '123456789545453423', '6e0c39b0243a0f4cf57e6565228fcf0a', 'Pegawai', 'Aktif');
+(3, '123456789545453423', '6e0c39b0243a0f4cf57e6565228fcf0a', 'Pegawai', 'Aktif'),
+(4, '351651651616116161', '76403431e2d20fc35406e8be764584b2', 'Pegawai', 'Aktif');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `anak`
+--
+
+CREATE TABLE `anak` (
+  `id_anak` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `nik_anak` varchar(25) NOT NULL,
+  `nama_anak` varchar(100) NOT NULL,
+  `tmpt_lhr_anak` varchar(100) NOT NULL,
+  `tgl_lhr_anak` date NOT NULL,
+  `alamat_anak` varchar(255) NOT NULL,
+  `pekerjaan_anak` varchar(255) NOT NULL,
+  `status_hidup_anak` enum('Hidup','Meninggal') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `bapak_ibu`
+--
+
+CREATE TABLE `bapak_ibu` (
+  `id_bi` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `nik_bi` varchar(25) NOT NULL,
+  `nama_bi` varchar(100) NOT NULL,
+  `tmpt_lhr_bi` varchar(100) NOT NULL,
+  `tgl_lhr_bi` date NOT NULL,
+  `alamat_bi` varchar(255) NOT NULL,
+  `pekerjaan_bi` varchar(255) NOT NULL,
+  `status_hidup_bi` enum('Hidup','Meninggal') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -124,7 +161,78 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama_pegawai`, `tmpt_lhr`, `tgl_lhr`, `alamat`, `no_telpon`, `email`, `foto`, `id_agama`, `id_golongan`, `id_jabatan`, `id_akun`) VALUES
-('12345678 954545 3 423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Tidak Ada Data', 1, 1, 1, 3);
+('12345678 954545 3 423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Kemenag-Logo.png', 1, 1, 1, 3),
+('35165165 161611 6 161', 'Andi', 'dsds', '2020-12-17', 'Kec. Tambang Ulang', '0821 5896 6021', 'ruangpesan.informatika@gmail.com', 'WhatsApp Image 2020-12-22 at 15.03.24.jpeg', 1, 1, 1, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pelatihan`
+--
+
+CREATE TABLE `pelatihan` (
+  `id_pelatihan` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `nama_pelatihan` varchar(255) NOT NULL,
+  `tgl_mulai` decimal(10,0) NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `no_sertifikat` varchar(100) NOT NULL,
+  `penyelenggara` varchar(255) NOT NULL,
+  `file_sertifikat` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `riwayat_pekerjaan`
+--
+
+CREATE TABLE `riwayat_pekerjaan` (
+  `id_riwayat_pekerjaan` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `instansi` varchar(255) NOT NULL,
+  `jabatan` varchar(255) NOT NULL,
+  `tgl_mulai` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
+  `nomor_sk` varchar(100) NOT NULL,
+  `tgl_sk` date NOT NULL,
+  `file_sk` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `riwayat_pendidikan`
+--
+
+CREATE TABLE `riwayat_pendidikan` (
+  `id_rp` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `id_tingkat` int(11) NOT NULL,
+  `nama_sekolah` varchar(255) NOT NULL,
+  `akreditasi` varchar(255) NOT NULL,
+  `nomor_ijaazh` varchar(255) NOT NULL,
+  `tgl_ijazah` date NOT NULL,
+  `file_ijazah` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `suami_istri`
+--
+
+CREATE TABLE `suami_istri` (
+  `id_si` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `nik_si` varchar(25) NOT NULL,
+  `nama_si` varchar(100) NOT NULL,
+  `tmpt_lhr_si` varchar(100) NOT NULL,
+  `tgl_lhr_si` decimal(10,0) NOT NULL,
+  `alamat_si` varchar(255) NOT NULL,
+  `pekerjaan_si` varchar(255) NOT NULL,
+  `status_hidup_si` enum('Hidup','Meninggal') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -154,6 +262,20 @@ ALTER TABLE `akun`
   ADD PRIMARY KEY (`id_akun`);
 
 --
+-- Indeks untuk tabel `anak`
+--
+ALTER TABLE `anak`
+  ADD PRIMARY KEY (`id_anak`),
+  ADD KEY `nip` (`nip`);
+
+--
+-- Indeks untuk tabel `bapak_ibu`
+--
+ALTER TABLE `bapak_ibu`
+  ADD PRIMARY KEY (`id_bi`),
+  ADD KEY `nip` (`nip`);
+
+--
 -- Indeks untuk tabel `golongan`
 --
 ALTER TABLE `golongan`
@@ -176,6 +298,35 @@ ALTER TABLE `pegawai`
   ADD KEY `id_agama` (`id_agama`);
 
 --
+-- Indeks untuk tabel `pelatihan`
+--
+ALTER TABLE `pelatihan`
+  ADD PRIMARY KEY (`id_pelatihan`),
+  ADD KEY `nip` (`nip`);
+
+--
+-- Indeks untuk tabel `riwayat_pekerjaan`
+--
+ALTER TABLE `riwayat_pekerjaan`
+  ADD PRIMARY KEY (`id_riwayat_pekerjaan`),
+  ADD KEY `nip` (`nip`);
+
+--
+-- Indeks untuk tabel `riwayat_pendidikan`
+--
+ALTER TABLE `riwayat_pendidikan`
+  ADD PRIMARY KEY (`id_rp`),
+  ADD KEY `nip` (`nip`),
+  ADD KEY `id_tingkat` (`id_tingkat`);
+
+--
+-- Indeks untuk tabel `suami_istri`
+--
+ALTER TABLE `suami_istri`
+  ADD PRIMARY KEY (`id_si`),
+  ADD KEY `nip` (`nip`);
+
+--
 -- Indeks untuk tabel `tingkat`
 --
 ALTER TABLE `tingkat`
@@ -195,7 +346,19 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT untuk tabel `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `anak`
+--
+ALTER TABLE `anak`
+  MODIFY `id_anak` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `bapak_ibu`
+--
+ALTER TABLE `bapak_ibu`
+  MODIFY `id_bi` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT untuk tabel `golongan`
@@ -210,6 +373,30 @@ ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT untuk tabel `pelatihan`
+--
+ALTER TABLE `pelatihan`
+  MODIFY `id_pelatihan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat_pekerjaan`
+--
+ALTER TABLE `riwayat_pekerjaan`
+  MODIFY `id_riwayat_pekerjaan` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `riwayat_pendidikan`
+--
+ALTER TABLE `riwayat_pendidikan`
+  MODIFY `id_rp` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `suami_istri`
+--
+ALTER TABLE `suami_istri`
+  MODIFY `id_si` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT untuk tabel `tingkat`
 --
 ALTER TABLE `tingkat`
@@ -220,6 +407,18 @@ ALTER TABLE `tingkat`
 --
 
 --
+-- Ketidakleluasaan untuk tabel `anak`
+--
+ALTER TABLE `anak`
+  ADD CONSTRAINT `anak_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `bapak_ibu`
+--
+ALTER TABLE `bapak_ibu`
+  ADD CONSTRAINT `bapak_ibu_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ketidakleluasaan untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
@@ -227,6 +426,31 @@ ALTER TABLE `pegawai`
   ADD CONSTRAINT `pegawai_ibfk_2` FOREIGN KEY (`id_golongan`) REFERENCES `golongan` (`id_golongan`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pegawai_ibfk_3` FOREIGN KEY (`id_akun`) REFERENCES `akun` (`id_akun`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `pegawai_ibfk_4` FOREIGN KEY (`id_agama`) REFERENCES `agama` (`id_agama`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `pelatihan`
+--
+ALTER TABLE `pelatihan`
+  ADD CONSTRAINT `pelatihan_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `riwayat_pekerjaan`
+--
+ALTER TABLE `riwayat_pekerjaan`
+  ADD CONSTRAINT `riwayat_pekerjaan_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `riwayat_pendidikan`
+--
+ALTER TABLE `riwayat_pendidikan`
+  ADD CONSTRAINT `riwayat_pendidikan_ibfk_1` FOREIGN KEY (`id_tingkat`) REFERENCES `tingkat` (`id_tingkat`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `riwayat_pendidikan_ibfk_2` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `suami_istri`
+--
+ALTER TABLE `suami_istri`
+  ADD CONSTRAINT `suami_istri_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -44,14 +44,11 @@
  <script>
      $(function() {
          $("#example1").DataTable();
-         $('#example2').DataTable({
-             "paging": true,
-             "lengthChange": false,
-             "searching": false,
-             "ordering": true,
-             "info": true,
-             "autoWidth": false,
-         });
+         $("#suami_istri").DataTable();
+         $("#anak").DataTable();
+         $("#ortu").DataTable();
+         $("#pendidikan1").DataTable();
+         $("#pekerjaan1").DataTable();
 
          $('.select2').select2();
 
