@@ -35,7 +35,7 @@ include "../komponen/menu.php";
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-responsive table-striped">
+                        <table id="example1" class="table table-bordered  table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -46,7 +46,7 @@ include "../komponen/menu.php";
                             <tbody>
                                 <?php
                                 $no = 1;
-                                $sql = mysqli_query($koneksi, "SELECT * FROM agama order by agama") or die(mysqli_error($koneksi));
+                                $sql = mysqli_query($koneksi, "SELECT * FROM agama order by agama DESC") or die(mysqli_error($koneksi));
                                 while ($dt = mysqli_fetch_array($sql)) {
                                 ?>
                                     <tr>

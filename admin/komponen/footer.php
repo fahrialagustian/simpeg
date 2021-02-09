@@ -44,6 +44,7 @@
  <script>
      $(function() {
          $("#example1").DataTable();
+         
          $("#suami_istri").DataTable();
          $("#anak").DataTable();
          $("#ortu").DataTable();

@@ -35,7 +35,7 @@ include "../komponen/menu.php";
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-responsive table-striped">
+                        <table id="example1" class="table table-bordered  table-striped">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -56,7 +56,7 @@ include "../komponen/menu.php";
                                         <td><?php echo $dt['nama_pegawai'] ?></td>
                                         <td>
                                             <center>
-                                                <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                <a href="profil.php?id=<?php echo str_replace(" ","", $dt['nip']) ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
 
                                                 <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
