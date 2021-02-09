@@ -1,7 +1,7 @@
 <?php
 include "../../config.php";
 if (isset($_POST['simpan'])) {
-    $nip = $_POST['nip'];
+    $nip = str_replace(" ", "", $_POST['nip']);
     $nama_pegawai = $_POST['nama_pegawai'];
     $tmpt_lhr = $_POST['tmpt_lhr'];
     $tgl_lhr = date('Y-m-d', strtotime($_POST['tgl_lhr']));
