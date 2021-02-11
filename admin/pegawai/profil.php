@@ -147,12 +147,12 @@ $dt = mysqli_fetch_array($sql);
                                                             <td><?php echo $data['akreditasi'] ?></td>
                                                             <td><?php echo $data['nomor_ijazah'] ?></td>
                                                             <td><?php echo $data['tgl_ijazah'] ?></td>
-                                                            <td>-</td>
+                                                            <td><?php echo $data['file_ijazah'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['id_rp'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
+                                                                    <a href="ubah_pendidikan.php?id=<?php echo $data['id_rp'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['id_rp'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_pendidikan.php?id=<?php echo $data['id_rp'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -184,7 +184,7 @@ $dt = mysqli_fetch_array($sql);
                                     <!-- The timeline -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <a href="tambah_pegawai.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Pekerjaan</button></a>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal_pekerjaan"><i class="fa fa-plus"></i> Pekerjaan</button>
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
@@ -192,28 +192,38 @@ $dt = mysqli_fetch_array($sql);
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>Instansi</th>
+                                                        <th>Jabatan</th>
+                                                        <th>Tgl. Mulai</th>
+                                                        <th>Tgl. Selesai</th>
+                                                        <th>Nomor SK</th>
+                                                        <th>Tgl. SK</th>
+                                                        <th>File SK</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
+                                                    $nip = $_GET['id'];
                                                     $no = 1;
-                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
+                                                    $sql = mysqli_query($koneksi, "SELECT * FROM riwayat_pekerjaan where nip='$nip' order by tgl_mulai DESC") or die(mysqli_error($koneksi));
                                                     while ($dt = mysqli_fetch_array($sql)) {
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $no++ ?></td>
-                                                            <td><?php echo $dt['nip'] ?></td>
-                                                            <td><?php echo $dt['nama_pegawai'] ?></td>
+                                                            <td><?php echo $dt['instansi'] ?></td>
+                                                            <td><?php echo $dt['jabatan'] ?></td>
+                                                            <td><?php echo $dt['tgl_mulai'] ?></td>
+                                                            <td><?php echo $dt['tgl_selesai'] ?></td>
+                                                            <td><?php echo $dt['nomor_sk'] ?></td>
+                                                            <td><?php echo $dt['tgl_sk'] ?></td>
+                                                            <td><?php echo $dt['file_sk'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
 
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
+                                                                    <a href="ubah_pekerjaan.php?id=<?php echo $dt['id_riwayat_pekerjaan'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_pekerjaan.php?id=<?php echo $dt['id_riwayat_pekerjaan'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -225,8 +235,13 @@ $dt = mysqli_fetch_array($sql);
                                                 <tfoot>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>Instansi</th>
+                                                        <th>Jabatan</th>
+                                                        <th>Tgl. Mulai</th>
+                                                        <th>Tgl. Selesai</th>
+                                                        <th>Nomor SK</th>
+                                                        <th>Tgl. SK</th>
+                                                        <th>File SK</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
@@ -239,8 +254,7 @@ $dt = mysqli_fetch_array($sql);
                                 <div class="<?php echo $tab == 'pelatihan' ? 'active' : null ?> tab-pane" id="pelatihan">
                                     <!-- The timeline -->
                                     <div class="card">
-                                        <div class="card-header">
-                                            <a href="tambah_pegawai.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Pelatihan</button></a>
+                                        <div class="card-header"><button class="btn btn-primary" data-toggle="modal" data-target="#modal_pelatihan"><i class="fa fa-plus"></i> Pelatihan</button>
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
@@ -248,28 +262,35 @@ $dt = mysqli_fetch_array($sql);
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>Nama Pelatihan</th>
+                                                        <th>Tgl. Mulai</th>
+                                                        <th>Tgl. Selesai</th>
+                                                        <th>Nomor Sertifikat</th>
+                                                        <th>Penyelenggara</th>
+                                                        <th>File Sertifikat</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
+                                                    $nip = $_GET['id'];
                                                     $no = 1;
-                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
+                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pelatihan where nip='$nip' order by tgl_mulai DESC") or die(mysqli_error($koneksi));
                                                     while ($dt = mysqli_fetch_array($sql)) {
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $no++ ?></td>
-                                                            <td><?php echo $dt['nip'] ?></td>
-                                                            <td><?php echo $dt['nama_pegawai'] ?></td>
+                                                            <td><?php echo $dt['nama_pelatihan'] ?></td>
+                                                            <td><?php echo $dt['tgl_mulai'] ?></td>
+                                                            <td><?php echo $dt['tgl_selesai'] ?></td>
+                                                            <td><?php echo $dt['no_sertifikat'] ?></td>
+                                                            <td><?php echo $dt['penyelenggara'] ?></td>
+                                                            <td><?php echo $dt['file_sertifikat'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                                    <a href="ubah_pelatihan.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_pelatihan.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -281,8 +302,12 @@ $dt = mysqli_fetch_array($sql);
                                                 <tfoot>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>Nama Pelatihan</th>
+                                                        <th>Tgl. Mulai</th>
+                                                        <th>Tgl. Selesai</th>
+                                                        <th>Nomor Sertifikat</th>
+                                                        <th>Penyelenggara</th>
+                                                        <th>File Sertifikat</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
@@ -573,7 +598,118 @@ $dt = mysqli_fetch_array($sql);
                     </div>
                     <div class="form-group">
                         <label for="file_ijazah" class="col-form-label">File Ijazah</label>
-                        <input type="file" class="form-control" name="file_ijazah" id="file_ijazah">
+                        <input type="file" accept="application/pdf" class="form-control" name="file_ijazah" id="file_ijazah">
+                        <small class="badge badge-danger">* Format file .pdf</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Pekerjaan -->
+<div class="modal fade bd-example-modal-lg" id="modal_pekerjaan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align: center;" id="modal_pendidikan">RIWAYAT PEKERJAAN</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="proses_tambah_pekerjaan.php" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nama_instansi" class="col-form-label">Nama Instansi</label>
+                        <input type="text" required class="form-control" name="nama_instansi" id="nama_instansi">
+
+                        <input type="hidden" class="form-control" name="nip" value="<?php echo $id ?>" id="nama_sekolah">
+                    </div>
+                    <div class="form-group">
+                        <label for="jabatan" class="col-form-label">Jabatan</label>
+                        <input type="text" class="form-control" name="jabatan" id="jabatan">
+                        <small class="badge badge-danger">* Isi dengan - jika tidak ada Jabatan</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_mulai" class="col-form-label">Tgl. Mulai</label>
+                        <input type="date" class="form-control" name="tgl_mulai" id="tgl_mulai">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_selesai" class="col-form-label">Tgl. Selesai</label>
+                        <input type="date" class="form-control" name="tgl_selesai" id="tgl_selesai">
+                    </div>
+                    <div class="form-group">
+                        <label for="no_sk" class="col-form-label">Nomor SK</label>
+                        <input type="text" class="form-control" name="no_sk" id="no_sk">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_sk" class="col-form-label">Tgl. SK</label>
+                        <input type="date" class="form-control" name="tgl_sk" id="tgl_sk">
+                    </div>
+                    <div class="form-group">
+                        <label for="file_sk" class="col-form-label">File SK</label>
+                        <input type="file" accept="application/pdf" class="form-control" name="file_sk" id="file_sk">
+                        <small class="badge badge-danger">* Format file .pdf</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Pelatihan -->
+<div class="modal fade bd-example-modal-lg" id="modal_pelatihan" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align: center;" id="modal_pendidikan">RIWAYAT PELATIHAN</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="proses_tambah_pelatihan.php" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nama_pelatihan" class="col-form-label">Nama Pelatihan</label>
+                        <input type="text" required class="form-control" name="nama_pelatihan" id="nama_pelatihan">
+
+                        <input type="hidden" class="form-control" name="nip" value="<?php echo $id ?>" id="nip">
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_mulai" class="col-form-label">Tgl. Mulai</label>
+                        <input type="date" class="form-control" name="tgl_mulai" id="tgl_mulai">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_selesai" class="col-form-label">Tgl. Selesai</label>
+                        <input type="date" class="form-control" name="tgl_selesai" id="tgl_selesai">
+                    </div>
+                    <div class="form-group">
+                        <label for="no_sertifikat" class="col-form-label">Nomor Sertifikat</label>
+                        <input type="text" class="form-control" name="no_sertifikat" id="no_sertifikat">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="penyelenggara" class="col-form-label">Penyelenggara</label>
+                        <input type="text" class="form-control" name="penyelenggara" id="penyelenggara">
+                    </div>
+                    <div class="form-group">
+                        <label for="file_sertifikat" class="col-form-label">File Sertifikat</label>
+                        <input type="file" accept="application/pdf" class="form-control" name="file_sertifikat" id="file_sertifikat">
                         <small class="badge badge-danger">* Format file .pdf</small>
                     </div>
             </div>
