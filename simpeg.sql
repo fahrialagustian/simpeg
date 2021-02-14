@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Des 2020 pada 04.15
--- Versi server: 10.3.16-MariaDB
--- Versi PHP: 7.3.6
+-- Waktu pembuatan: 14 Feb 2021 pada 03.19
+-- Versi server: 10.4.6-MariaDB
+-- Versi PHP: 7.3.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -38,7 +38,8 @@ CREATE TABLE `agama` (
 --
 
 INSERT INTO `agama` (`id_agama`, `agama`) VALUES
-(1, 'Islam');
+(1, 'Islam'),
+(4, 'Kritiani');
 
 -- --------------------------------------------------------
 
@@ -161,8 +162,8 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama_pegawai`, `tmpt_lhr`, `tgl_lhr`, `alamat`, `no_telpon`, `email`, `foto`, `id_agama`, `id_golongan`, `id_jabatan`, `id_akun`) VALUES
-('12345678 954545 3 423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Kemenag-Logo.png', 1, 1, 1, 3),
-('35165165 161611 6 161', 'Andi', 'dsds', '2020-12-17', 'Kec. Tambang Ulang', '0821 5896 6021', 'ruangpesan.informatika@gmail.com', 'WhatsApp Image 2020-12-22 at 15.03.24.jpeg', 1, 1, 1, 4);
+('123456789545453423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Kemenag-Logo.png', 1, 1, 1, 3),
+('351651651616116161', 'Andi', 'dsds', '2020-12-17', 'Kec. Tambang Ulang', '0821 5896 6021', 'ruangpesan.informatika@gmail.com', 'WhatsApp Image 2020-12-22 at 15.03.24.jpeg', 1, 1, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -180,6 +181,15 @@ CREATE TABLE `pelatihan` (
   `penyelenggara` varchar(255) NOT NULL,
   `file_sertifikat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pelatihan`
+--
+
+INSERT INTO `pelatihan` (`id_pelatihan`, `nip`, `nama_pelatihan`, `tgl_mulai`, `tgl_selesai`, `no_sertifikat`, `penyelenggara`, `file_sertifikat`) VALUES
+(1, '351651651616116161', 'sdmskdm', '1970', '1970-01-01', '', '', 'Tidak Ada File'),
+(2, '351651651616116161', 'Apasakslaks', '2021', '2021-02-12', '', 'mklmdlksmd', 'surat pns ptt.pdf'),
+(3, '351651651616116161', 'sklmdksmd', '2021', '2021-02-12', '001/SRTF/XI/2019', 'mklmdlksmd', 'surat pns ptt.pdf');
 
 -- --------------------------------------------------------
 
@@ -199,6 +209,14 @@ CREATE TABLE `riwayat_pekerjaan` (
   `file_sk` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `riwayat_pekerjaan`
+--
+
+INSERT INTO `riwayat_pekerjaan` (`id_riwayat_pekerjaan`, `nip`, `instansi`, `jabatan`, `tgl_mulai`, `tgl_selesai`, `nomor_sk`, `tgl_sk`, `file_sk`) VALUES
+(1, '351651651616116161', '', '-', '2021-02-10', '2021-02-27', 'asa212', '2021-02-01', '6301032408980006_DrhRiwayat.pdf'),
+(2, '351651651616116161', '', '-', '2021-02-17', '2021-02-11', 'asa212', '2021-02-11', '6301032408980006_DrhRiwayat.pdf');
+
 -- --------------------------------------------------------
 
 --
@@ -210,8 +228,9 @@ CREATE TABLE `riwayat_pendidikan` (
   `nip` varchar(25) NOT NULL,
   `id_tingkat` int(11) NOT NULL,
   `nama_sekolah` varchar(255) NOT NULL,
+  `jurusan` varchar(255) NOT NULL,
   `akreditasi` varchar(255) NOT NULL,
-  `nomor_ijaazh` varchar(255) NOT NULL,
+  `nomor_ijazah` varchar(255) NOT NULL,
   `tgl_ijazah` date NOT NULL,
   `file_ijazah` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -244,6 +263,19 @@ CREATE TABLE `tingkat` (
   `id_tingkat` int(11) NOT NULL,
   `tingkat` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `tingkat`
+--
+
+INSERT INTO `tingkat` (`id_tingkat`, `tingkat`) VALUES
+(2, 'SD'),
+(3, 'MI'),
+(4, 'SMP'),
+(5, 'MTs'),
+(6, 'SMK'),
+(7, 'SMA'),
+(8, 'MA');
 
 --
 -- Indexes for dumped tables
@@ -340,7 +372,7 @@ ALTER TABLE `tingkat`
 -- AUTO_INCREMENT untuk tabel `agama`
 --
 ALTER TABLE `agama`
-  MODIFY `id_agama` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_agama` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `akun`
@@ -376,19 +408,19 @@ ALTER TABLE `jabatan`
 -- AUTO_INCREMENT untuk tabel `pelatihan`
 --
 ALTER TABLE `pelatihan`
-  MODIFY `id_pelatihan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pelatihan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pekerjaan`
 --
 ALTER TABLE `riwayat_pekerjaan`
-  MODIFY `id_riwayat_pekerjaan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_riwayat_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pendidikan`
 --
 ALTER TABLE `riwayat_pendidikan`
-  MODIFY `id_rp` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_rp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `suami_istri`
@@ -400,7 +432,7 @@ ALTER TABLE `suami_istri`
 -- AUTO_INCREMENT untuk tabel `tingkat`
 --
 ALTER TABLE `tingkat`
-  MODIFY `id_tingkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_tingkat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
