@@ -288,9 +288,9 @@ $dt = mysqli_fetch_array($sql);
                                                             <td><?php echo $dt['file_sertifikat'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="ubah_pelatihan.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
+                                                                    <a href="ubah_pelatihan.php?id=<?php echo $dt['id_pelatihan'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a onclick="return konfirmasi();" href="hapus_pelatihan.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_pelatihan.php?id=<?php echo $dt['id_pelatihan'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -321,7 +321,7 @@ $dt = mysqli_fetch_array($sql);
                                     <!-- The timeline -->
                                     <div class="card">
                                         <div class="card-header">
-                                            <a href="tambah_pegawai.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Suami/Istri</button></a>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal_si"><i class="fa fa-plus"></i> Suami/Istri</button>
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
@@ -329,28 +329,34 @@ $dt = mysqli_fetch_array($sql);
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Alamat</th>
+                                                        <th>Pekerjaan</th>
+                                                        <th>Status Hidup</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
                                                     $no = 1;
-                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
+                                                    $sql = mysqli_query($koneksi, "SELECT * FROM suami_istri where nip='$id' order by nama_si ASC") or die(mysqli_error($koneksi));
                                                     while ($dt = mysqli_fetch_array($sql)) {
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $no++ ?></td>
-                                                            <td><?php echo $dt['nip'] ?></td>
-                                                            <td><?php echo $dt['nama_pegawai'] ?></td>
+                                                            <td><?php echo $dt['nik_si'] ?></td>
+                                                            <td><?php echo $dt['nama_si'] ?></td>
+                                                            <td><?php echo $dt['tmpt_lhr_si'] ?>,<?php echo $dt['tgl_lhr_si'] ?></td>
+                                                            <td><?php echo $dt['alamat_si'] ?></td>
+                                                            <td><?php echo $dt['pekerjaan_si'] ?></td>
+                                                            <td><?php echo $dt['status_hidup_si'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                                    <a href="ubah_si.php?id=<?php echo $dt['id_si'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_si.php?id=<?php echo $dt['id_si'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -362,8 +368,12 @@ $dt = mysqli_fetch_array($sql);
                                                 <tfoot>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Alamat</th>
+                                                        <th>Pekerjaan</th>
+                                                        <th>Status Hidup</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
@@ -374,36 +384,42 @@ $dt = mysqli_fetch_array($sql);
 
                                     <div class="card">
                                         <div class="card-header">
-                                            <a href="tambah_pegawai.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Anak</button></a>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal_anak"><i class="fa fa-plus"></i> Anak</button>
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
-                                            <table id="anak" class="table table-bordered table-striped">
+                                            <table id="anak" class="table table-bordered table-responsive table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Alamat</th>
+                                                        <th>Pekerjaan</th>
+                                                        <th>Status Hidup</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
                                                     $no = 1;
-                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
+                                                    $sql = mysqli_query($koneksi, "SELECT * FROM anak where nip='$id' order by nama_anak ASC") or die(mysqli_error($koneksi));
                                                     while ($dt = mysqli_fetch_array($sql)) {
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $no++ ?></td>
-                                                            <td><?php echo $dt['nip'] ?></td>
-                                                            <td><?php echo $dt['nama_pegawai'] ?></td>
+                                                            <td><?php echo $dt['nik_anak'] ?></td>
+                                                            <td><?php echo $dt['nama_anak'] ?></td>
+                                                            <td><?php echo $dt['tmpt_lhr_anak'] ?>,<?php echo $dt['tgl_lhr_anak'] ?></td>
+                                                            <td><?php echo $dt['alamat_anak'] ?></td>
+                                                            <td><?php echo $dt['pekerjaan_anak'] ?></td>
+                                                            <td><?php echo $dt['status_hidup_anak'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                                    <a href="ubah_anak.php?id=<?php echo $dt['id_anak'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_anak.php?id=<?php echo $dt['id_anak'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -415,8 +431,12 @@ $dt = mysqli_fetch_array($sql);
                                                 <tfoot>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Alamat</th>
+                                                        <th>Pekerjaan</th>
+                                                        <th>Status Hidup</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
@@ -427,36 +447,43 @@ $dt = mysqli_fetch_array($sql);
 
                                     <div class="card">
                                         <div class="card-header">
-                                            <a href="tambah_pegawai.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Orang Tua Kandung</button></a>
+                                            <button class="btn btn-primary" data-toggle="modal" data-target="#modal_ortu"><i class="fa fa-plus"></i> Orang Tua Kandung</button>
+
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
-                                            <table id="ortu" class="table table-bordered table-striped">
+                                            <table id="ortu" class="table table-bordered table-responsive table-striped">
                                                 <thead>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Alamat</th>
+                                                        <th>Pekerjaan</th>
+                                                        <th>Status Hidup</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
                                                     $no = 1;
-                                                    $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
+                                                    $sql = mysqli_query($koneksi, "SELECT * FROM bapak_ibu where nip='$id' order by nama_bi ASC") or die(mysqli_error($koneksi));
                                                     while ($dt = mysqli_fetch_array($sql)) {
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $no++ ?></td>
-                                                            <td><?php echo $dt['nip'] ?></td>
-                                                            <td><?php echo $dt['nama_pegawai'] ?></td>
+                                                            <td><?php echo $dt['nik_bi'] ?></td>
+                                                            <td><?php echo $dt['nama_bi'] ?></td>
+                                                            <td><?php echo $dt['tmpt_lhr_bi'] ?>,<?php echo $dt['tgl_lhr_bi'] ?></td>
+                                                            <td><?php echo $dt['alamat_bi'] ?></td>
+                                                            <td><?php echo $dt['pekerjaan_bi'] ?></td>
+                                                            <td><?php echo $dt['status_hidup_bi'] ?></td>
                                                             <td>
                                                                 <center>
-                                                                    <a href="profil.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                                    <a href="ubah_ortu.php?id=<?php echo $dt['id_bi'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                                    <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                                    <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                                    <a onclick="return konfirmasi();" href="hapus_ortu.php?id=<?php echo $dt['id_bi'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
                                                                 </center>
 
                                                             </td>
@@ -468,8 +495,12 @@ $dt = mysqli_fetch_array($sql);
                                                 <tfoot>
                                                     <tr>
                                                         <th>No</th>
-                                                        <th>NIP</th>
-                                                        <th>Nama Pegawai</th>
+                                                        <th>NIK</th>
+                                                        <th>Nama</th>
+                                                        <th>Tanggal Lahir</th>
+                                                        <th>Alamat</th>
+                                                        <th>Pekerjaan</th>
+                                                        <th>Status Hidup</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </tfoot>
@@ -711,6 +742,191 @@ $dt = mysqli_fetch_array($sql);
                         <label for="file_sertifikat" class="col-form-label">File Sertifikat</label>
                         <input type="file" accept="application/pdf" class="form-control" name="file_sertifikat" id="file_sertifikat">
                         <small class="badge badge-danger">* Format file .pdf</small>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Keluarga -->
+<div class="modal fade bd-example-modal-lg" id="modal_si" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align: center;" id="modal_pendidikan">DATA SUAMI/ISTRI</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="proses_tambah_si.php" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nama_si" class="col-form-label">Nama Sumai/Istri</label>
+                        <input type="text" required class="form-control" name="nama_si" id="nama_si">
+
+                        <input type="hidden" class="form-control" name="nip" value="<?php echo $id ?>" id="nip">
+                    </div>
+                    <div class="form-group">
+                        <label for="nik" class="col-form-label">NIK</label>
+                        <input type="text" class="form-control" name="nik" id="nik">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tmpt_lhr" class="col-form-label">Tempat Lahir</label>
+                        <input type="text" class="form-control" name="tmpt_lhr" id="tmpt_lhr">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_lahir" class="col-form-label">Tgl. Lahir</label>
+                        <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat" class="col-form-label">Alamat</label>
+                        <input type="text" class="form-control" name="alamat" id="alamat">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="pekerjaan" class="col-form-label">Pekerjaan</label>
+                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control select2" name="status" style="width: 100%;">
+                            <option selected="selected" disabled>--Pilih Status--</option>
+                            <option value="Hidup">Hidup</option>
+                            <option value="Meninggal">Meninggal</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Anak -->
+<div class="modal fade bd-example-modal-lg" id="modal_anak" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align: center;" id="modal_pendidikan">DATA ANAK</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="proses_tambah_anak.php" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nama_anak" class="col-form-label">Nama Anak</label>
+                        <input type="text" required class="form-control" name="nama_anak" id="nama_anak">
+
+                        <input type="hidden" class="form-control" name="nip" value="<?php echo $id ?>" id="nip">
+                    </div>
+                    <div class="form-group">
+                        <label for="nik" class="col-form-label">NIK</label>
+                        <input type="text" class="form-control" name="nik" id="nik">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tmpt_lhr" class="col-form-label">Tempat Lahir</label>
+                        <input type="text" class="form-control" name="tmpt_lhr" id="tmpt_lhr">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_lahir" class="col-form-label">Tgl. Lahir</label>
+                        <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat" class="col-form-label">Alamat</label>
+                        <input type="text" class="form-control" name="alamat" id="alamat">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="pekerjaan" class="col-form-label">Pekerjaan</label>
+                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan">
+                        <small class="badge badge-danger">* Isi dengan - jika anak belum bekerja</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control select2" name="status" style="width: 100%;">
+                            <option selected="selected" disabled>--Pilih Status--</option>
+                            <option value="Hidup">Hidup</option>
+                            <option value="Meninggal">Meninggal</option>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Ortu -->
+<div class="modal fade bd-example-modal-lg" id="modal_ortu" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" style="text-align: center;" id="modal_ortu">DATA ANAK</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="proses_tambah_ortu.php" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="nama_bi" class="col-form-label">Nama Orang Tua</label>
+                        <input type="text" required class="form-control" name="nama_bi" id="nama_bi">
+
+                        <input type="hidden" class="form-control" name="nip" value="<?php echo $id ?>" id="nip">
+                    </div>
+                    <div class="form-group">
+                        <label for="nik" class="col-form-label">NIK</label>
+                        <input type="text" class="form-control" name="nik" id="nik">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tmpt_lhr" class="col-form-label">Tempat Lahir</label>
+                        <input type="text" class="form-control" name="tmpt_lhr" id="tmpt_lhr">
+                        <!-- <small class="badge badge-danger">* Isi dengan - jika tidak ada akreditasi</small> -->
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_lahir" class="col-form-label">Tgl. Lahir</label>
+                        <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir">
+                    </div>
+                    <div class="form-group">
+                        <label for="alamat" class="col-form-label">Alamat</label>
+                        <input type="text" class="form-control" name="alamat" id="alamat">
+
+                    </div>
+                    <div class="form-group">
+                        <label for="pekerjaan" class="col-form-label">Pekerjaan</label>
+                        <input type="text" class="form-control" name="pekerjaan" id="pekerjaan">
+                        <small class="badge badge-danger">* Isi dengan - jika orang tua tidak berkeja</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select class="form-control select2" name="status" style="width: 100%;">
+                            <option selected="selected" disabled>--Pilih Status--</option>
+                            <option value="Hidup">Hidup</option>
+                            <option value="Meninggal">Meninggal</option>
+                        </select>
                     </div>
             </div>
             <div class="modal-footer">
