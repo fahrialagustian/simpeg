@@ -14,7 +14,7 @@
                 <img src="../../file/logo/Kemenag-Logo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a href="#" class="d-block"><?php echo $_SESSION['nama_pengguna']?></a>
+                <a href="#" class="d-block"><?php echo $_SESSION['nama_pengguna'] ?></a>
             </div>
         </div>
 
@@ -78,6 +78,14 @@
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Pegawai
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../absen/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Absen
                         </p>
                     </a>
                 </li>
