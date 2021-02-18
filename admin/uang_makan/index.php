@@ -12,12 +12,12 @@ include "../komponen/menu.php";
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Data Absen</h1>
+                    <h1>Data Uang Makan</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="../komponen/index.php">Home</a></li>
-                        <li class="breadcrumb-item active">Data Absen</li>
+                        <li class="breadcrumb-item active">Data Uang Makan</li>
                     </ol>
                 </div>
             </div>
@@ -31,8 +31,48 @@ include "../komponen/menu.php";
 
                 <div class="card">
                     <div class="card-header">
-                        <a href="tambah_absen.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Absen</button></a>
-                        <button class="btn btn-success"><i class="fa fa-print"></i> Cetak</button>
+                        <h3 class="card-title">Data Uang Makan Bulan <?php echo date('F Y') ?></h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <select class="form-control select2" name="nip" style="width: 100%;">
+                                        <option selected="selected" disabled>--Pilih Bulan--</option>
+                                        <?php
+                                        $sql = mysqli_query($koneksi, "SELECT MONTH(tgl_absen) as bulan from absen GROUP by MONTH(tgl_absen) ASC") or die(mysqli_error($koneksi));
+                                        while ($bulan = mysqli_fetch_array($sql)) {
+                                        ?>
+                                            <option value="<?php echo $bulan['bulan'] ?>"> <?php echo date('F',strtotime($bulan['bulan'])) ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <select class="form-control select2" name="nip" style="width: 100%;">
+                                        <option selected="selected" disabled>--Pilih Tahun--</option>
+                                        <?php
+                                        $sql = mysqli_query($koneksi, "SELECT Year(tgl_absen) as tahun from absen GROUP by Year(tgl_absen) ASC") or die(mysqli_error($koneksi));
+                                        while ($tahun = mysqli_fetch_array($sql)) {
+                                        ?>
+                                            <option value="<?php echo $tahun['tahun'] ?>"> <?php echo $tahun['tahun'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <button class="btn btn-primary"><i class="fa fa-search"></i> Filter</button>
+                                <button class="btn btn-success"><i class="fa fa-print"></i> Cetak</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -41,12 +81,9 @@ include "../komponen/menu.php";
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Pegawai</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Masuk</th>
-                                    <th>Jam Pulang</th>
-                                    <th>Keterangan</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th>Jumlah Kehadiran</th>
+                                    <th>Uang Makan / Hari</th>
+                                    <th>Jumlah</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -61,16 +98,6 @@ include "../komponen/menu.php";
                                         <td><?php echo $dt['tgl_absen'] ?></td>
                                         <td><?php echo $dt['jam_masuk'] ?></td>
                                         <td><?php echo $dt['jam_pulang'] ?></td>
-                                        <td><?php echo $dt['keterangan'] ?></td>
-                                        <td><?php echo $dt['keterangan_absen'] ?></td>
-                                        <td>
-                                            <center>
-                                                <a href="ubah_absen.php?id=<?php echo $dt['id_absen'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                <a onclick="return konfirmasi();" href="hapus_absen.php?id=<?php echo $dt['id_absen'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
-                                            </center>
-
-                                        </td>
                                     </tr>
                                 <?php
                                 }
@@ -80,12 +107,9 @@ include "../komponen/menu.php";
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Pegawai</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Masuk</th>
-                                    <th>Jam Pulang</th>
-                                    <th>Keterangan</th>
-                                    <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th>Jumlah Kehadiran</th>
+                                    <th>Uang Makan / Hari</th>
+                                    <th>Jumlah</th>
                                 </tr>
                             </tfoot>
                         </table>

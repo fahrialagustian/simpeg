@@ -90,6 +90,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="../uang_makan/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Uang Makan
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="pages/widgets.html" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
