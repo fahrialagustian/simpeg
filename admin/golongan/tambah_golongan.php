@@ -51,6 +51,14 @@ include "../komponen/menu.php";
                                                     <label for="exampleInputEmail1">Nama Golongan</label>
                                                     <input type="text" name="golongan" class="form-control" id="exampleInputEmail1" placeholder="Nama Golongan">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="uang_makan">Uang Makan</label>
+                                                    <input type="text" name="uang_makan" class="form-control" id="uang_makan" placeholder="Rp.">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Pajak">Pajak</label>
+                                                    <input type="text" name="pajak" class="form-control" id="Pajak" placeholder="Pajak">
+                                                </div>
                                             </div>
                                             <!-- /.card-body -->
 

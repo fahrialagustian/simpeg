@@ -58,6 +58,14 @@ include "../komponen/menu.php";
                                                     <input type="hidden" name="id_golongan" class="form-control" value="<?php echo $dt['id_golongan'] ?>">
                                                     <input type="text" name="golongan" class="form-control" value="<?php echo $dt['golongan'] ?>" id="exampleInputEmail1" placeholder="Nama Golongan">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="uang_makan">Uang Makan</label>
+                                                    <input type="text" value="<?php echo $dt['uang_makan'] ?>" name="uang_makan" class="form-control" id="uang_makan" placeholder="Rp.">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="Pajak">Pajak</label>
+                                                    <input type="text" value="<?php echo $dt['pajak']*100 ?>" name="pajak" class="form-control" id="Pajak" placeholder="Pajak">
+                                                </div>
                                             </div>
                                             <!-- /.card-body -->
 

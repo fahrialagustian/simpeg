@@ -40,6 +40,8 @@ include "../komponen/menu.php";
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Golongan</th>
+                                    <th>Uang Makan</th>
+                                    <th>Pajak</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -52,6 +54,8 @@ include "../komponen/menu.php";
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $dt['golongan'] ?></td>
+                                        <td>Rp. <?php echo number_format($dt['uang_makan'], 0, ',', '.') ?></td>
+                                        <td><?php echo $dt['pajak'] * 100 ?> %</td>
                                         <td>
                                             <center>
                                                 <a href="ubah_golongan.php?id=<?php echo $dt['id_golongan'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
@@ -69,6 +73,8 @@ include "../komponen/menu.php";
                                 <tr>
                                     <th>No</th>
                                     <th>Nama Golongan</th>
+                                    <th>Uang Makan</th>
+                                    <th>Pajak</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>
