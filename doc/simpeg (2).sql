@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Feb 2021 pada 03.19
+-- Waktu pembuatan: 21 Feb 2021 pada 10.32
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -21,6 +21,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `simpeg`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `absen`
+--
+
+CREATE TABLE `absen` (
+  `id_absen` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `tgl_absen` date NOT NULL,
+  `jam_masuk` time NOT NULL,
+  `jam_pulang` time NOT NULL,
+  `id_ketengan_absen` int(11) NOT NULL,
+  `keterangan` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `absen`
+--
+
+INSERT INTO `absen` (`id_absen`, `nip`, `tgl_absen`, `jam_masuk`, `jam_pulang`, `id_ketengan_absen`, `keterangan`) VALUES
+(7, '351651651616116161', '2021-02-18', '21:25:00', '22:26:00', 1, '-'),
+(8, '123456789545453423', '2021-02-18', '01:32:00', '21:28:00', 1, '-'),
+(9, '123456789545453423', '2021-02-20', '09:59:00', '11:01:00', 1, '-'),
+(10, '351651651616116161', '2021-01-07', '10:16:00', '12:14:00', 1, '-');
 
 -- --------------------------------------------------------
 
@@ -62,7 +88,8 @@ CREATE TABLE `akun` (
 INSERT INTO `akun` (`id_akun`, `username`, `password`, `level`, `status`) VALUES
 (1, 'Admin', 'e3afed0047b08059d0fada10f400c1e5', 'Admin', 'Aktif'),
 (3, '123456789545453423', '6e0c39b0243a0f4cf57e6565228fcf0a', 'Pegawai', 'Aktif'),
-(4, '351651651616116161', '76403431e2d20fc35406e8be764584b2', 'Pegawai', 'Aktif');
+(4, '351651651616116161', '76403431e2d20fc35406e8be764584b2', 'Pegawai', 'Aktif'),
+(5, '82686784638643688_', '918a882626fb0631c527be3922858354', 'Pegawai', 'Aktif');
 
 -- --------------------------------------------------------
 
@@ -108,15 +135,18 @@ CREATE TABLE `bapak_ibu` (
 
 CREATE TABLE `golongan` (
   `id_golongan` int(11) NOT NULL,
-  `golongan` varchar(255) NOT NULL
+  `golongan` varchar(255) NOT NULL,
+  `uang_makan` int(11) NOT NULL,
+  `pajak` decimal(2,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `golongan`
 --
 
-INSERT INTO `golongan` (`id_golongan`, `golongan`) VALUES
-(1, 'III A');
+INSERT INTO `golongan` (`id_golongan`, `golongan`, `uang_makan`, `pajak`) VALUES
+(1, 'III A', 37000, '0.05'),
+(3, 'IV A', 41000, '0.15');
 
 -- --------------------------------------------------------
 
@@ -135,6 +165,27 @@ CREATE TABLE `jabatan` (
 
 INSERT INTO `jabatan` (`id_jabatan`, `jabatan`) VALUES
 (1, 'Guru');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `keterangan_absen`
+--
+
+CREATE TABLE `keterangan_absen` (
+  `id_keterangan_absen` int(11) NOT NULL,
+  `keterangan_absen` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `keterangan_absen`
+--
+
+INSERT INTO `keterangan_absen` (`id_keterangan_absen`, `keterangan_absen`) VALUES
+(1, 'Hadir'),
+(2, 'Tanpa Keterangan'),
+(3, 'Izin'),
+(4, 'Sakit');
 
 -- --------------------------------------------------------
 
@@ -162,8 +213,8 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama_pegawai`, `tmpt_lhr`, `tgl_lhr`, `alamat`, `no_telpon`, `email`, `foto`, `id_agama`, `id_golongan`, `id_jabatan`, `id_akun`) VALUES
-('123456789545453423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Kemenag-Logo.png', 1, 1, 1, 3),
-('351651651616116161', 'Andi', 'dsds', '2020-12-17', 'Kec. Tambang Ulang', '0821 5896 6021', 'ruangpesan.informatika@gmail.com', 'WhatsApp Image 2020-12-22 at 15.03.24.jpeg', 1, 1, 1, 4);
+('123456789545453423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Kemenag-Logo.png', 1, 3, 1, 3),
+('351651651616116161', 'Budi', 'Pelaihari', '2020-12-17', 'Kec. Tambang Ulang', '0821 5896 6021', 'ruangpesan.informatika@gmail.com', 'WhatsApp Image 2020-12-22 at 15.03.24.jpeg', 1, 3, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -181,15 +232,6 @@ CREATE TABLE `pelatihan` (
   `penyelenggara` varchar(255) NOT NULL,
   `file_sertifikat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `pelatihan`
---
-
-INSERT INTO `pelatihan` (`id_pelatihan`, `nip`, `nama_pelatihan`, `tgl_mulai`, `tgl_selesai`, `no_sertifikat`, `penyelenggara`, `file_sertifikat`) VALUES
-(1, '351651651616116161', 'sdmskdm', '1970', '1970-01-01', '', '', 'Tidak Ada File'),
-(2, '351651651616116161', 'Apasakslaks', '2021', '2021-02-12', '', 'mklmdlksmd', 'surat pns ptt.pdf'),
-(3, '351651651616116161', 'sklmdksmd', '2021', '2021-02-12', '001/SRTF/XI/2019', 'mklmdlksmd', 'surat pns ptt.pdf');
 
 -- --------------------------------------------------------
 
@@ -209,14 +251,6 @@ CREATE TABLE `riwayat_pekerjaan` (
   `file_sk` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `riwayat_pekerjaan`
---
-
-INSERT INTO `riwayat_pekerjaan` (`id_riwayat_pekerjaan`, `nip`, `instansi`, `jabatan`, `tgl_mulai`, `tgl_selesai`, `nomor_sk`, `tgl_sk`, `file_sk`) VALUES
-(1, '351651651616116161', '', '-', '2021-02-10', '2021-02-27', 'asa212', '2021-02-01', '6301032408980006_DrhRiwayat.pdf'),
-(2, '351651651616116161', '', '-', '2021-02-17', '2021-02-11', 'asa212', '2021-02-11', '6301032408980006_DrhRiwayat.pdf');
-
 -- --------------------------------------------------------
 
 --
@@ -235,6 +269,13 @@ CREATE TABLE `riwayat_pendidikan` (
   `file_ijazah` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `riwayat_pendidikan`
+--
+
+INSERT INTO `riwayat_pendidikan` (`id_rp`, `nip`, `id_tingkat`, `nama_sekolah`, `jurusan`, `akreditasi`, `nomor_ijazah`, `tgl_ijazah`, `file_ijazah`) VALUES
+(2, '351651651616116161', 2, 'SDN', '-', '-', '0989809', '2021-02-17', 'surat pns ptt.pdf');
+
 -- --------------------------------------------------------
 
 --
@@ -247,7 +288,7 @@ CREATE TABLE `suami_istri` (
   `nik_si` varchar(25) NOT NULL,
   `nama_si` varchar(100) NOT NULL,
   `tmpt_lhr_si` varchar(100) NOT NULL,
-  `tgl_lhr_si` decimal(10,0) NOT NULL,
+  `tgl_lhr_si` date NOT NULL,
   `alamat_si` varchar(255) NOT NULL,
   `pekerjaan_si` varchar(255) NOT NULL,
   `status_hidup_si` enum('Hidup','Meninggal') NOT NULL
@@ -280,6 +321,14 @@ INSERT INTO `tingkat` (`id_tingkat`, `tingkat`) VALUES
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indeks untuk tabel `absen`
+--
+ALTER TABLE `absen`
+  ADD PRIMARY KEY (`id_absen`),
+  ADD KEY `nip` (`nip`),
+  ADD KEY `id_ketengan_absen` (`id_ketengan_absen`);
 
 --
 -- Indeks untuk tabel `agama`
@@ -318,6 +367,12 @@ ALTER TABLE `golongan`
 --
 ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
+
+--
+-- Indeks untuk tabel `keterangan_absen`
+--
+ALTER TABLE `keterangan_absen`
+  ADD PRIMARY KEY (`id_keterangan_absen`);
 
 --
 -- Indeks untuk tabel `pegawai`
@@ -369,6 +424,12 @@ ALTER TABLE `tingkat`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `absen`
+--
+ALTER TABLE `absen`
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT untuk tabel `agama`
 --
 ALTER TABLE `agama`
@@ -378,31 +439,37 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT untuk tabel `akun`
 --
 ALTER TABLE `akun`
-  MODIFY `id_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_akun` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT untuk tabel `anak`
 --
 ALTER TABLE `anak`
-  MODIFY `id_anak` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_anak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `bapak_ibu`
 --
 ALTER TABLE `bapak_ibu`
-  MODIFY `id_bi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_bi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `golongan`
 --
 ALTER TABLE `golongan`
-  MODIFY `id_golongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_golongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
 --
 ALTER TABLE `jabatan`
   MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `keterangan_absen`
+--
+ALTER TABLE `keterangan_absen`
+  MODIFY `id_keterangan_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelatihan`
@@ -414,19 +481,19 @@ ALTER TABLE `pelatihan`
 -- AUTO_INCREMENT untuk tabel `riwayat_pekerjaan`
 --
 ALTER TABLE `riwayat_pekerjaan`
-  MODIFY `id_riwayat_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_riwayat_pekerjaan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `riwayat_pendidikan`
 --
 ALTER TABLE `riwayat_pendidikan`
-  MODIFY `id_rp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_rp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `suami_istri`
 --
 ALTER TABLE `suami_istri`
-  MODIFY `id_si` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_si` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `tingkat`
@@ -437,6 +504,13 @@ ALTER TABLE `tingkat`
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
+
+--
+-- Ketidakleluasaan untuk tabel `absen`
+--
+ALTER TABLE `absen`
+  ADD CONSTRAINT `absen_ibfk_1` FOREIGN KEY (`id_ketengan_absen`) REFERENCES `keterangan_absen` (`id_keterangan_absen`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `absen_ibfk_2` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `anak`
