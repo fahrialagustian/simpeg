@@ -95,11 +95,6 @@ include "../komponen/menu.php";
                             </thead>
                             <tbody>
                                 <?php
-                                if (isset($_GET['cetak'])) {
-                                    header('Location: mypage.php');
-                                    die();
-
-                                }
                                 $no = 1;
 
                                 $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, golongan.golongan,golongan.uang_makan,golongan.pajak from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));
@@ -161,7 +156,6 @@ include "../komponen/menu.php";
 </div>
 <!-- /.content-wrapper -->
 <?php
-
 
 // 
 include "../komponen/footer.php";

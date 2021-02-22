@@ -90,6 +90,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="../izin/cetak_izin.php" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Izin
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="../uang_makan/index.php" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
