@@ -24,7 +24,7 @@ if($jumHari == 31){
 }
 // $pdf->Cell(20, 6, 'Pelaihari, ', 0, 1, 'C');
 $pdf->ln(10);
-$pdf->Cell($panjang, 6, 'Rekap Absen Bulan, ', 0, 0, 'C');
+$pdf->Cell($panjang, 6, 'REKAP ABSEN BULAN ' . strtoupper(getBulan($bulan)) . " " . $tahun, 0, 0, 'C');
 $pdf->ln(10);
 $pdf->SetFont('Arial', '', 8);
 
@@ -47,7 +47,7 @@ while ($dt =mysqli_fetch_array($sql)) {
         $pdf->AddPage();
         $pdf->ln(10);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell($panjang, 6, 'Rekap Absen Bulan, ', 0, 0, 'C');
+        $pdf->Cell($panjang, 6, 'REKAP ABSEN BULAN '.strtoupper(date('F',strtotime($bulan)))." ".$tahun, 0, 0, 'C');
         $pdf->ln(10);
         $pdf->SetFont('Arial', '', 11);
         $pdf->Cell($panjang, 6, $dt['nip']." | ".$dt['nama_pegawai'], 1, 0, 'L');
@@ -117,7 +117,7 @@ while ($dt =mysqli_fetch_array($sql)) {
 }
 
 
-$nama = "Rekap Absen Bulan.pdf";
+$nama = "Rekap Absen Bulan". getBulan($bulan)." ".$tahun.".pdf";
 
 $pdf->Output("$nama", "I");
 ?>
