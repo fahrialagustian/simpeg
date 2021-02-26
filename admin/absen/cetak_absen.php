@@ -23,12 +23,12 @@ if($jumHari == 31){
     $panjang = 280;
 }
 // $pdf->Cell(20, 6, 'Pelaihari, ', 0, 1, 'C');
-$pdf->ln(10);
+// $pdf->ln(10);
 $pdf->Cell($panjang, 6, 'REKAP ABSEN BULAN ' . strtoupper(getBulan($bulan)) . " " . $tahun, 0, 0, 'C');
 $pdf->ln(10);
 $pdf->SetFont('Arial', '', 8);
 
-$y = 41;
+$y = 31;
 $jum = 10;
 $j = 1;
 while ($dt =mysqli_fetch_array($sql)) {
@@ -38,7 +38,7 @@ while ($dt =mysqli_fetch_array($sql)) {
     if($j % 4 == 0){
         
         if($j % 4 == 0){
-            $y = 41;
+            $y = 31;
         }
         else{
             $y = $y;
@@ -117,7 +117,7 @@ while ($dt =mysqli_fetch_array($sql)) {
 }
 
 
-$nama = "Rekap Absen Bulan". getBulan($bulan)." ".$tahun.".pdf";
+$nama = "Rekap Absen Bulan ". getBulan($bulan)." ".$tahun.".pdf";
 
 $pdf->Output("$nama", "I");
 ?>
