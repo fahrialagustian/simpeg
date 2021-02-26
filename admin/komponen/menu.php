@@ -90,7 +90,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../izin/cetak_izin.php" class="nav-link">
+                    <a href="../izin/index.php" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             Izin

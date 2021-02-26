@@ -32,7 +32,7 @@ include "../komponen/menu.php";
                 <div class="card">
                     <div class="card-header">
                         <a href="tambah_absen.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Absen</button></a>
-                        <button class="btn btn-success"><i class="fa fa-print"></i> Cetak</button>
+                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-print"></i> Cetak</button>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -58,7 +58,7 @@ include "../komponen/menu.php";
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $dt['nama_pegawai'] ?></td>
-                                        <td><?php echo $dt['tgl_absen'] ?></td>
+                                        <td><?php echo tgl_indo($dt['tgl_absen']) ?></td>
                                         <td><?php echo $dt['jam_masuk'] ?></td>
                                         <td><?php echo $dt['jam_pulang'] ?></td>
                                         <td><?php echo $dt['keterangan'] ?></td>
@@ -101,6 +101,57 @@ include "../komponen/menu.php";
     <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Cetak Absen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <form method="Post" action="cetak_absen.php">
+                    <div class="form-group">
+                        <select class="form-control select2" name="bulan" style="width: 100%;">
+                            <option selected="selected" disabled>--Pilih Bulan--</option>
+                            <?php
+                            $sql = mysqli_query($koneksi, "SELECT MONTH(tgl_absen) as bulan from absen GROUP by MONTH(tgl_absen) ASC") or die(mysqli_error($koneksi));
+                            while ($bulan = mysqli_fetch_array($sql)) {
+                            ?>
+                                <option value="<?php echo $bulan['bulan'] ?>"> <?php echo $bulan['bulan'] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <select class="form-control select2" name="tahun" style="width: 100%;">
+                            <option selected="selected" disabled>--Pilih Tahun--</option>
+                            <?php
+                            $sql = mysqli_query($koneksi, "SELECT Year(tgl_absen) as tahun from absen GROUP by Year(tgl_absen) ASC") or die(mysqli_error($koneksi));
+                            while ($tahun = mysqli_fetch_array($sql)) {
+                            ?>
+                                <option value="<?php echo $tahun['tahun'] ?>"> <?php echo $tahun['tahun'] ?></option>
+                            <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Print</button>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
 <?php
 include "../komponen/footer.php";
 ?>
