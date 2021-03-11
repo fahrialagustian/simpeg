@@ -32,47 +32,6 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>
-                            Data Master
-                            <i class="right fas fa-angle-left"></i>
-                        </p>
-                    </a>
-                    <ul class="nav nav-treeview">
-                        <li class="nav-item">
-                            <a href="../jabatan/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Jabatan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../golongan/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Golongan</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../agama/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Agama</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="../tingkat/index.php" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Data Tingkat</p>
-                            </a>
-                        </li>
-                        <!-- <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Dashboard v3</p>
-                            </a>
-                        </li> -->
-                    </ul>
-                </li>
                 <li class="nav-item">
                     <a href="../pegawai/index.php" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -106,10 +65,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
+                    <a href="../kgb/index.php" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             KGB
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../sppd/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            SPPD
                         </p>
                     </a>
                 </li>

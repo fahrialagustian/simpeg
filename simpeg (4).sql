@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 10 Mar 2021 pada 07.42
+-- Waktu pembuatan: 11 Mar 2021 pada 12.41
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -66,7 +66,7 @@ INSERT INTO `absen` (`id_absen`, `nip`, `tgl_absen`, `jam_masuk`, `jam_pulang`, 
 (27, '123456789545453423', '2021-02-23', '09:06:00', '09:06:00', 1, '-'),
 (28, '123456789545453423', '2021-02-24', '09:06:00', '09:06:00', 1, '-'),
 (29, '123456789545453423', '2021-02-25', '09:06:00', '09:06:00', 1, '-'),
-(30, '123456789545453423', '2021-02-26', '09:06:00', '09:06:00', 1, '-');
+(32, '123456789545453423', '2021-03-11', '20:13:00', '22:13:00', 1, '-');
 
 -- --------------------------------------------------------
 
@@ -107,7 +107,7 @@ CREATE TABLE `akun` (
 
 INSERT INTO `akun` (`id_akun`, `username`, `password`, `level`, `status`) VALUES
 (1, 'Admin', 'e3afed0047b08059d0fada10f400c1e5', 'Admin', 'Aktif'),
-(3, '123456789545453423', '6e0c39b0243a0f4cf57e6565228fcf0a', 'Pegawai', 'Aktif'),
+(3, '123456789545453423', 'c4ca4238a0b923820dcc509a6f75849b', 'Pegawai', 'Aktif'),
 (4, '351651651616116161', 'c4ca4238a0b923820dcc509a6f75849b', 'Pegawai', 'Aktif'),
 (5, '82686784638643688_', '918a882626fb0631c527be3922858354', 'Pegawai', 'Aktif');
 
@@ -185,6 +185,13 @@ CREATE TABLE `izin` (
   `tgl_buat` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data untuk tabel `izin`
+--
+
+INSERT INTO `izin` (`id_izin`, `nip`, `alasan`, `tgl_awal`, `tgl_akhir`, `keterangan`, `status`, `tgl_buat`) VALUES
+(3, '123456789545453423', 'Belajar Membuat Aplikasi Android Dengan Google Flutter dan Dart', '2021-03-11', '2021-03-11', '-', 'Acc', '2021-03-11');
+
 -- --------------------------------------------------------
 
 --
@@ -228,6 +235,30 @@ INSERT INTO `keterangan_absen` (`id_keterangan_absen`, `keterangan_absen`) VALUE
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `kgb`
+--
+
+CREATE TABLE `kgb` (
+  `id_kgb` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `no_sk` varchar(100) NOT NULL,
+  `tgl_sk` date NOT NULL,
+  `tmt_sk` varchar(100) NOT NULL,
+  `mk_tahun` varchar(100) NOT NULL,
+  `mk_bulan` varchar(100) NOT NULL,
+  `keterangan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `kgb`
+--
+
+INSERT INTO `kgb` (`id_kgb`, `nip`, `no_sk`, `tgl_sk`, `tmt_sk`, `mk_tahun`, `mk_bulan`, `keterangan`) VALUES
+(1, '123456789545453423', 'asa212', '2021-03-10', '', 'msa', 'amsa', '-');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `pegawai`
 --
 
@@ -251,7 +282,7 @@ CREATE TABLE `pegawai` (
 --
 
 INSERT INTO `pegawai` (`nip`, `nama_pegawai`, `tmpt_lhr`, `tgl_lhr`, `alamat`, `no_telpon`, `email`, `foto`, `id_agama`, `id_golongan`, `id_jabatan`, `id_akun`) VALUES
-('123456789545453423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'Kemenag-Logo.png', 1, 3, 1, 3),
+('123456789545453423', 'BAMBANG, A.Md', 'Banjarmasin', '2020-12-12', 'Atu-atu', '09878688666564', 'chariabenefit_u99@yahoo.co.id', 'WhatsApp Image 2021-03-02 at 12.02.00.jpeg', 1, 3, 1, 3),
 ('351651651616116161', 'Budi', 'Pelaihari', '2020-12-17', 'Kec. Tambang Ulang', '0821 5896 6021', 'ruangpesan.informatika@gmail.com', 'WhatsApp Image 2020-12-22 at 15.03.24.jpeg', 1, 3, 3, 4);
 
 -- --------------------------------------------------------
@@ -313,6 +344,39 @@ CREATE TABLE `riwayat_pendidikan` (
 
 INSERT INTO `riwayat_pendidikan` (`id_rp`, `nip`, `id_tingkat`, `nama_sekolah`, `jurusan`, `akreditasi`, `nomor_ijazah`, `tgl_ijazah`, `file_ijazah`) VALUES
 (2, '351651651616116161', 2, 'SDN', '-', '-', '0989809', '2021-02-17', 'surat pns ptt.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `sppd`
+--
+
+CREATE TABLE `sppd` (
+  `id_sppd` int(11) NOT NULL,
+  `nip` varchar(25) NOT NULL,
+  `no_sppd` varchar(255) NOT NULL,
+  `no_urut` int(11) NOT NULL,
+  `tgl_buat` date NOT NULL,
+  `maksud` varchar(255) NOT NULL,
+  `alat` varchar(255) NOT NULL,
+  `tujuan` varchar(255) NOT NULL,
+  `dari` varchar(255) NOT NULL,
+  `tgl_berngkat` date NOT NULL,
+  `tgl_pulang` date NOT NULL,
+  `lama` int(11) NOT NULL,
+  `anggaran` varchar(255) NOT NULL,
+  `instansi` varchar(255) NOT NULL,
+  `mata_anggaran` varchar(255) NOT NULL,
+  `status` enum('Proses','Konfirmasi','Tolak') NOT NULL,
+  `keterangan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `sppd`
+--
+
+INSERT INTO `sppd` (`id_sppd`, `nip`, `no_sppd`, `no_urut`, `tgl_buat`, `maksud`, `alat`, `tujuan`, `dari`, `tgl_berngkat`, `tgl_pulang`, `lama`, `anggaran`, `instansi`, `mata_anggaran`, `status`, `keterangan`) VALUES
+(2, '123456789545453423', '2/Mts.17.11-4/KU.01.1/03/21', 2, '2021-03-11', 'Updating Data EMIS Madrasah Tahun Pelajaran 2019/2020', 'Angkutan Darat', 'MTsN 8 Tanah Laut', 'Pelaihari', '2021-02-20', '2021-02-21', 2, 'DIPA-025.04.2.605198/2020', 'MTsN 4 Tanah Laut', '524111', 'Konfirmasi', '-');
 
 -- --------------------------------------------------------
 
@@ -420,6 +484,13 @@ ALTER TABLE `keterangan_absen`
   ADD PRIMARY KEY (`id_keterangan_absen`);
 
 --
+-- Indeks untuk tabel `kgb`
+--
+ALTER TABLE `kgb`
+  ADD PRIMARY KEY (`id_kgb`),
+  ADD KEY `nip` (`nip`);
+
+--
 -- Indeks untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
@@ -452,6 +523,13 @@ ALTER TABLE `riwayat_pendidikan`
   ADD KEY `id_tingkat` (`id_tingkat`);
 
 --
+-- Indeks untuk tabel `sppd`
+--
+ALTER TABLE `sppd`
+  ADD PRIMARY KEY (`id_sppd`),
+  ADD KEY `nip` (`nip`);
+
+--
 -- Indeks untuk tabel `suami_istri`
 --
 ALTER TABLE `suami_istri`
@@ -472,7 +550,7 @@ ALTER TABLE `tingkat`
 -- AUTO_INCREMENT untuk tabel `absen`
 --
 ALTER TABLE `absen`
-  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT untuk tabel `agama`
@@ -508,7 +586,7 @@ ALTER TABLE `golongan`
 -- AUTO_INCREMENT untuk tabel `izin`
 --
 ALTER TABLE `izin`
-  MODIFY `id_izin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_izin` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `jabatan`
@@ -521,6 +599,12 @@ ALTER TABLE `jabatan`
 --
 ALTER TABLE `keterangan_absen`
   MODIFY `id_keterangan_absen` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT untuk tabel `kgb`
+--
+ALTER TABLE `kgb`
+  MODIFY `id_kgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelatihan`
@@ -539,6 +623,12 @@ ALTER TABLE `riwayat_pekerjaan`
 --
 ALTER TABLE `riwayat_pendidikan`
   MODIFY `id_rp` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `sppd`
+--
+ALTER TABLE `sppd`
+  MODIFY `id_sppd` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `suami_istri`
@@ -582,6 +672,12 @@ ALTER TABLE `izin`
   ADD CONSTRAINT `izin_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Ketidakleluasaan untuk tabel `kgb`
+--
+ALTER TABLE `kgb`
+  ADD CONSTRAINT `kgb_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Ketidakleluasaan untuk tabel `pegawai`
 --
 ALTER TABLE `pegawai`
@@ -608,6 +704,12 @@ ALTER TABLE `riwayat_pekerjaan`
 ALTER TABLE `riwayat_pendidikan`
   ADD CONSTRAINT `riwayat_pendidikan_ibfk_1` FOREIGN KEY (`id_tingkat`) REFERENCES `tingkat` (`id_tingkat`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `riwayat_pendidikan_ibfk_2` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `sppd`
+--
+ALTER TABLE `sppd`
+  ADD CONSTRAINT `sppd_ibfk_1` FOREIGN KEY (`nip`) REFERENCES `pegawai` (`nip`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ketidakleluasaan untuk tabel `suami_istri`

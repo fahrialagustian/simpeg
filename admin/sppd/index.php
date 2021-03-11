@@ -59,12 +59,20 @@ include "../komponen/menu.php";
                                         <td>
                                             <center>
                                                 <a href="detail_sppd.php?id=<?php echo  $dt['id_sppd'] ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detail</button></a>
-
+                                                <?php
+                                                if ($dt['status'] == 'Konfirmasi') :
+                                                ?>
                                                 <a href="print.php?id=<?php echo  $dt['id_sppd'] ?>"><button class="btn btn-info btn-sm"><i class="fa fa-print"></i> Print</button></a>
-
+                                                <?php
+                                                endif;
+                                                if($dt['status'] !='Konfirmasi'):
+                                                ?>
                                                 <a href="ubah_sppd.php?id=<?php echo  $dt['id_sppd'] ?>"><button class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</button></a>
 
                                                 <a onclick="return konfirmasi();" href="hapus_sppd.php?id=<?php echo  $dt['id_sppd'] ?>"><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                <?php
+                                                endif;
+                                                ?>
                                             </center>
 
                                         </td>

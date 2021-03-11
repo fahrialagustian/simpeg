@@ -41,26 +41,28 @@ include "../komponen/menu.php";
                                     <th>No</th>
                                     <th>NIP</th>
                                     <th>Nama Pegawai</th>
+                                    <th>Jabatan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
                                 $no = 1;
-                                $sql = mysqli_query($koneksi, "SELECT * FROM pegawai order by nama_pegawai") or die(mysqli_error($koneksi));
+                                $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai,jabatan.jabatan from jabatan join pegawai on jabatan.id_jabatan=pegawai.id_jabatan ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));
                                 while ($dt = mysqli_fetch_array($sql)) {
                                 ?>
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $dt['nip'] ?></td>
                                         <td><?php echo $dt['nama_pegawai'] ?></td>
+                                        <td><?php echo $dt['jabatan'] ?></td>
                                         <td>
                                             <center>
-                                                <a href="profil.php?id=<?php echo str_replace(" ","", $dt['nip']) ?>"><button class="btn btn-primary"><i class="fa fa-eye"></i> Detail</button></a>
+                                                <a href="profil.php?id=<?php echo str_replace(" ", "", $dt['nip']) ?>"><button class="btn btn-primary btn-sm"><i class="fa fa-eye"></i> Detail</button></a>
 
-                                                <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
+                                                <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-success btn-sm"><i class="fa fa-edit "></i> Ubah</button></a>
 
-                                                <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                <a onclick="return konfirmasi();" href="hapus_pegawai.php?id=<?php echo $dt['nip'] ?>"><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button></a>
                                             </center>
 
                                         </td>
@@ -74,6 +76,7 @@ include "../komponen/menu.php";
                                     <th>No</th>
                                     <th>NIP</th>
                                     <th>Nama Pegawai</th>
+                                    <th>Jabatan</th>
                                     <th>Aksi</th>
                                 </tr>
                             </tfoot>

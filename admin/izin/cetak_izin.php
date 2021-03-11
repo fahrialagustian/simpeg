@@ -6,6 +6,12 @@ $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai,golongan.
 
 $dt = mysqli_fetch_array($sql);
 
+
+$tanggal1 = new DateTime($dt['tgl_awal']);
+$tanggal2 = new DateTime($dt['tgl_akhir']);
+$perbedaan = $tanggal2->diff($tanggal1)->format("%a");
+$lama = $perbedaan + 1;
+
 include "../../library/fpdf/fpdf.php";
 $pdf = new FPDF('P', 'mm', array(210, 330));
 // membuat halaman baru
@@ -99,7 +105,7 @@ $pdf->ln();
 $pdf->ln();
 $pdf->Cell(30, 3, '', 0, 0, 'L');
 $pdf->Cell(5, 3, ' ', 0, 0, 'L');
-$pdf->MultiCell(130, 7, 'Mengajukan izin '.$dt['alasan'].' Selama ... hari kerja dari tanggal '.tgl_indo($dt['tgl_awal']).' sampai tanggal '.tgl_indo($dt['tgl_akhir']), 0, 'L');
+$pdf->MultiCell(130, 7, 'Mengajukan izin '.$dt['alasan']. ' Selama' . $lama . ' hari kerja dari tanggal '.tgl_indo($dt['tgl_awal']).' sampai tanggal '.tgl_indo($dt['tgl_akhir']), 0, 'L');
 
 
 $pdf->ln();

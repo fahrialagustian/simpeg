@@ -49,7 +49,7 @@ include "../../tgl_helper.php";
 
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+                <li class="nav-item"> 
                     <a class="nav-link" href="../../logout.php"><i class="fas fa-power-off"></i></a>
                 </li>
             </ul>

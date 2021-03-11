@@ -52,22 +52,26 @@ include "../komponen/menu.php";
                             <tbody>
                                 <?php
                                 $no = 1;
-                                $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai,KGB.maksud,KGB.id_KGB,KGB.status FROM pegawai JOIN KGB on pegawai.nip=KGB.nip ORDER BY KGB.tgl_buat DESC") or die(mysqli_error($koneksi));
+                                $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai,kgb.no_sk,kgb.id_kgb,kgb.tgl_sk,kgb.tmt_sk,kgb.mk_tahun,kgb.mk_bulan,kgb.keterangan from pegawai join kgb on pegawai.nip=kgb.nip ORDER BY kgb.tgl_sk DESC") or die(mysqli_error($koneksi));
                                 while ($dt = mysqli_fetch_array($sql)) {
                                 ?>
                                     <tr>
                                         <td><?php echo $no++ ?></td>
                                         <td><?php echo $dt['nama_pegawai'] ?><br><small><?php echo $dt['nip'] ?></small></td>
-                                        <td><?php echo $dt['maksud'] ?></td>
-                                        <td><?php echo $dt['status'] ?></td>
+                                        <td><?php echo $dt['no_sk'] ?></td>
+                                        <td><?php echo tgl_indo($dt['tgl_sk']) ?></td>
+                                        <td><?php echo $dt['tmt_sk'] ?></td>
+                                        <td><?php echo $dt['mk_tahun'] ?></td>
+                                        <td><?php echo $dt['mk_bulan'] ?></td>
+                                        <td><?php echo $dt['keterangan'] ?></td>
                                         <td>
                                             <center>
 
-                                                <a href="print.php?id=<?php echo  $dt['id_KGB'] ?>"><button class="btn btn-info btn-sm"><i class="fa fa-print"></i> Print</button></a>
+                                                <a href="print.php?id=<?php echo  $dt['id_kgb'] ?>"><button class="btn btn-info btn-sm"><i class="fa fa-print"></i> Print</button></a>
 
-                                                <a href="ubah_KGB.php?id=<?php echo  $dt['id_KGB'] ?>"><button class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</button></a>
+                                                <a href="ubah_kgb.php?id=<?php echo  $dt['id_kgb'] ?>"><button class="btn btn-success btn-sm"><i class="fa fa-edit"></i> Ubah</button></a>
 
-                                                <a onclick="return konfirmasi();" href="hapus_KGB.php?id=<?php echo  $dt['id_KGB'] ?>"><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                <a onclick="return konfirmasi();" href="hapus_kgb.php?id=<?php echo  $dt['id_kgb'] ?>"><button class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> Hapus</button></a>
                                             </center>
 
                                         </td>

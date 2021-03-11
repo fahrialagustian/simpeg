@@ -45,7 +45,7 @@ $dt = mysqli_fetch_array($sql);
 
                             <p class="text-muted text-center"><?php echo $dt['jabatan'] ?> / <?php echo $dt['golongan'] ?></p>
 
-                            <a href="#" class="btn btn-primary btn-block"><b>Ubah</b></a>
+                            <a href="ubah_pegawai.php?id=<?php echo $dt['nip'] ?>" class="btn btn-primary btn-block"><b>Ubah</b></a>
                         </div>
                         <!-- /.card-body -->
                     </div>
@@ -105,7 +105,51 @@ $dt = mysqli_fetch_array($sql);
                         <div class="card-body">
                             <div class="tab-content">
                                 <div class="<?php echo $tab == 'biodata' ? 'active' : null ?> tab-pane" id="biodata">
-
+                                    <table class="table table-striped">
+                                        <?php
+                                        $nip1 = $_GET['id'];
+                                        $query = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai,pegawai.tmpt_lhr,pegawai.tgl_lhr,pegawai.alamat,pegawai.no_telpon,pegawai.email,jabatan.jabatan,golongan.golongan,agama.agama from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan join jabatan on jabatan.id_jabatan=pegawai.id_jabatan join agama on agama.id_agama=pegawai.id_agama where pegawai.nip='$nip1'") or die(mysqli_error($koneksi));
+                                        $bio = mysqli_fetch_array($query);
+                                        ?>
+                                        <tbody>
+                                            <tr>
+                                                <td>NIP </td>
+                                                <td><?php echo $bio['nip'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nama </td>
+                                                <td><?php echo $bio['nama_pegawai'] ?>/<?php echo $bio['nip'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tempat Tanggal Lahir </td>
+                                                <td><?php echo $bio['tmpt_lhr']; ?>,<?php echo tgl_indo($bio['tgl_lhr']); ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Agama </td>
+                                                <td><?php echo $bio['agama'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Jabatan </td>
+                                                <td><?php echo $bio['jabatan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Golongan</td>
+                                                <td><?php echo $bio['golongan'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Alamat</td>
+                                                <td><?php echo $bio['alamat'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nomor Telpon</td>
+                                                <td><?php echo $bio['no_telpon'] ?></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Email</td>
+                                                <td><?php echo $bio['email'] ?></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                                 <!-- /.tab-pane -->
                                 <div class="<?php echo $tab == 'pendidikan' ? 'active' : null ?> tab-pane" id="pendidikan">
