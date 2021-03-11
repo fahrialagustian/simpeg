@@ -106,10 +106,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
+                    <a href="../kgb/index.php" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
                             KGB
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="../sppd/index.php" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            SPPD
                         </p>
                     </a>
                 </li>
