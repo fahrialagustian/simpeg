@@ -3,6 +3,12 @@ include "../../config.php";
 include "../../tgl_helper.php";
 
 include "../../library/fpdf/fpdf.php";
+$query = mysqli_query($koneksi,"SELECT * FROM pegawai where id_jabatan='3'") or die(mysqli_error($koneksi));
+$kepala = mysqli_fetch_array($query);
+
+$id = $_GET['id'];
+$sql = mysqli_query($koneksi,"SELECT pegawai.nip,pegawai.nama_pegawai, jabatan.jabatan,jabatan.id_jabatan,golongan.id_golongan,golongan.golongan, kgb.nomor,kgb.gaji_lama,kgb.tgl_lama,kgb.no_lama,kgb.tgl_gaji_lama,kgb.masa_kerja_lama,kgb.gaji_baru,kgb.masa_kerja_baru,kgb.golongan,kgb.mulai_berlaku,kgb.kenaikan_gaji,kgb.tgl_baru FROM jabatan JOIN pegawai on jabatan.id_jabatan=pegawai.id_jabatan join golongan on golongan.id_golongan=pegawai.id_golongan JOIN kgb on pegawai.nip=kgb.nip where kgb.id_kgb='$id'") or die(mysqli_error($koneksi));
+$dt = mysqli_fetch_array($sql);
 $pdf = new FPDF('P', 'mm', array(210, 330));
 // membuat halaman baru
 $pdf->AddPage();
@@ -31,14 +37,14 @@ $pdf->Ln(15);
 $pdf->Cell(20);
 $pdf->Cell(20, 5, 'Nomor', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(60, 5, '  ', 0, 0, 'L');
+$pdf->Cell(60, 5, $dt['nomor'], 0, 0, 'L');
 $pdf->Cell(30);
-$pdf->Cell(10, 5, 'Pelaihari, 4 September 2020', 0, 1, 'L');
+$pdf->Cell(10, 5, 'Pelaihari, '.tgl_indo($dt['tgl_baru']), 0, 1, 'L');
 
 $pdf->Cell(20);
 $pdf->Cell(20, 5, 'Sipat', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(60, 5, '  ', 0, 1, 'L');
+$pdf->Cell(60, 5, ' Penting ', 0, 1, 'L');
 
 $pdf->Cell(20);
 $pdf->Cell(20, 5, 'Lampiran', 0, 0, 'L');
@@ -80,19 +86,19 @@ $pdf->Ln(10);
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '1. Nama ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['nama_pegawai'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '2. NIP ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['nip'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '3. Pangkat/Jabatan ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['jabatan'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
@@ -104,7 +110,7 @@ $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '5. Gaji Pokok Lama ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['gaji_lama'], 0, 0, 'L');
 
 $pdf->Ln(10);
 // $pdf->Cell(20);
@@ -120,19 +126,19 @@ $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, 'b. Tanggal dan Nomor ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, tgl_indo($dt['tgl_lama'])."/".$dt['no_lama'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, 'c. Tanggal mulai berlaku gaji tersebut ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, tgl_indo($dt['tgl_gaji_lama']), 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, 'd. Masa Kerja Golongan ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['masa_kerja_lama'], 0, 0, 'L');
 
 
 $pdf->SetFont('Arial', 'U', 9);
@@ -145,31 +151,31 @@ $pdf->Ln(10);
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '6. Gaji pokok baru ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['gaji_baru'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '7. Berdasarkan masa kerja ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['masa_kerja_baru'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '8. Dalam golongan ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, $dt['golongan'], 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '9. Mulai berlaku ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, tgl_indo($dt['mulai_berlaku']), 0, 0, 'L');
 
 $pdf->Ln();
 $pdf->Cell(30);
 $pdf->Cell(60, 5, '10. Kenaikan Gaji yang akan datang ', 0, 0, 'L');
 $pdf->Cell(5, 5, ' : ', 0, 0, 'L');
-$pdf->Cell(50, 5, ' ', 0, 0, 'L');
+$pdf->Cell(50, 5, tgl_indo($dt['kenaikan_gaji']), 0, 0, 'L');
 
 $pdf->Ln(10);
 $pdf->Cell(20);
@@ -188,12 +194,12 @@ $pdf->Cell(40, 5, 'KEPALA', 0, 0, 'C');
 $pdf->Ln(20);
 $pdf->Cell(20);
 $pdf->Cell(110, 5, '', 0, 0, 'L');
-$pdf->Cell(40, 5, 'Nama Kepala Sekolah', 0, 0, 'C');
+$pdf->Cell(40, 5, $kepala['nama_pegawai'], 0, 0, 'C');
 
 $pdf->Ln();
 $pdf->Cell(20);
 $pdf->Cell(110, 5, '', 0, 0, 'L');
-$pdf->Cell(40, 5, 'NIP. ', 0, 0, 'C');
+$pdf->Cell(40, 5, 'NIP. '.$kepala['nip'], 0, 0, 'C');
 
 $pdf->Ln();
 $pdf->Cell(20);

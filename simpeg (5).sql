@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 11 Mar 2021 pada 12.41
+-- Waktu pembuatan: 15 Mar 2021 pada 09.44
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -241,20 +241,26 @@ INSERT INTO `keterangan_absen` (`id_keterangan_absen`, `keterangan_absen`) VALUE
 CREATE TABLE `kgb` (
   `id_kgb` int(11) NOT NULL,
   `nip` varchar(25) NOT NULL,
-  `no_sk` varchar(100) NOT NULL,
-  `tgl_sk` date NOT NULL,
-  `tmt_sk` varchar(100) NOT NULL,
-  `mk_tahun` varchar(100) NOT NULL,
-  `mk_bulan` varchar(100) NOT NULL,
-  `keterangan` varchar(255) NOT NULL
+  `nomor` varchar(100) NOT NULL,
+  `tgl_baru` date NOT NULL,
+  `gaji_lama` int(11) NOT NULL,
+  `tgl_lama` date NOT NULL,
+  `no_lama` varchar(100) NOT NULL,
+  `tgl_gaji_lama` date NOT NULL,
+  `masa_kerja_lama` varchar(100) NOT NULL,
+  `gaji_baru` int(11) NOT NULL,
+  `masa_kerja_baru` varchar(100) NOT NULL,
+  `golongan` varchar(100) NOT NULL,
+  `mulai_berlaku` date NOT NULL,
+  `kenaikan_gaji` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `kgb`
 --
 
-INSERT INTO `kgb` (`id_kgb`, `nip`, `no_sk`, `tgl_sk`, `tmt_sk`, `mk_tahun`, `mk_bulan`, `keterangan`) VALUES
-(1, '123456789545453423', 'asa212', '2021-03-10', '', 'msa', 'amsa', '-');
+INSERT INTO `kgb` (`id_kgb`, `nip`, `nomor`, `tgl_baru`, `gaji_lama`, `tgl_lama`, `no_lama`, `tgl_gaji_lama`, `masa_kerja_lama`, `gaji_baru`, `masa_kerja_baru`, `golongan`, `mulai_berlaku`, `kenaikan_gaji`) VALUES
+(1, '123456789545453423', '067/Mts.17.11-4/KP.07.2/08/2020', '2020-12-01', 3315900, '2018-03-01', '127/Mts.17.11-4/Kp.07.1/11/2018', '2018-03-01', '14 tahun 00 bulan', 3591200, '16 tahun 0 bulan', 'III/c', '2020-12-01', '2022-12-01');
 
 -- --------------------------------------------------------
 
@@ -604,7 +610,7 @@ ALTER TABLE `keterangan_absen`
 -- AUTO_INCREMENT untuk tabel `kgb`
 --
 ALTER TABLE `kgb`
-  MODIFY `id_kgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelatihan`
