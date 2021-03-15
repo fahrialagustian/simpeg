@@ -32,7 +32,6 @@ include "../komponen/menu.php";
                 <div class="card">
                     <div class="card-header">
                         <a href="tambah_absen.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Absen</button></a>
-                        <button class="btn btn-success" data-toggle="modal" data-target="#exampleModal"><i class="fa fa-print"></i> Cetak</button>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">

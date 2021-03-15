@@ -69,7 +69,6 @@ include "../komponen/menu.php";
                             </div>
                             <div class="col-5">
                                 <button name="filter" class="btn btn-primary"><i class="fa fa-search"></i> Filter</button>
-                                <button name="cetak" class="btn btn-success"><i class="fa fa-print"></i> Cetak</button>
                             </div>
                             </form>
                         </div>
@@ -95,11 +94,6 @@ include "../komponen/menu.php";
                             </thead>
                             <tbody>
                                 <?php
-                                if (isset($_GET['cetak'])) {
-                                    header('Location: mypage.php');
-                                    die();
-
-                                }
                                 $no = 1;
 
                                 $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, golongan.golongan,golongan.uang_makan,golongan.pajak from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan  where pegawai.nip='" . $_SESSION['nip'] . "' ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));

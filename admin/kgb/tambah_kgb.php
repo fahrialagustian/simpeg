@@ -65,31 +65,54 @@ include "../komponen/menu.php";
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="no_sk">Nomor SK</label>
-                                                            <input type="text" name="no_sk" class="form-control" id="no_sk" required placeholder="Nomor SK">
+                                                            <label for="nomor">Nomor Surat</label>
+                                                            <input type="text" name="nomor" class="form-control" id="nomor" required placeholder="Nomor Surat">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="tgl_sk">Tanggal SK</label>
-                                                            <input type="date" name="tgl_sk" class="form-control" id="tgl_sk" required placeholder="Tanggal SK">
+                                                            <label for="tgl_baru">Tanggal Surat</label>
+                                                            <input type="date" name="tgl_baru" class="form-control" id="tgl_baru" required placeholder="Tanggal Surat">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="tmt_sk">TMT SK</label>
-                                                            <input type="text" name="tmt_sk" class="form-control" id="tmt_sk" placeholder="TMT SK">
+                                                            <label for="gaji_lama">Gaji Pokok Lama</label>
+                                                            <input type="text" name="gaji_lama" class="form-control" id="gaji_lama" placeholder="Gaji Pokok Lama">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="no_lama">Nomor Surat Terdahulu</label>
+                                                            <input type="text" name="no_lama" class="form-control" id="no_lama" required placeholder="Nomor Surat Terdahulu">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tgl_gaji_lama">Tanggal Surat Terdahulu</label>
+                                                            <input type="date" name="tgl_lama" class="form-control" id="tgl_lama" required placeholder="MK Tahun">
+                                                        </div><div class="form-group">
+                                                            <label for="tgl_gaji_lama">Tanggal mulai berlaku gaji tersebut</label>
+                                                            <input type="date" name="tgl_gaji_lama" class="form-control" id="tgl_gaji_lama" required placeholder="MK Tahun">
                                                         </div>
 
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="mk_tahun">MK Tahun</label>
-                                                            <input type="text" name="mk_tahun" class="form-control" id="mk_tahun" required placeholder="MK Tahun">
+                                                            <label for="masa_kerja_lama">Masa Kerja Golongan</label>
+                                                            <input type="text" name="masa_kerja_lama" class="form-control" id="masa_kerja_lama" required placeholder="MK Bulan">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="mk_bulan">MK Bulan</label>
-                                                            <input type="text" name="mk_bulan" class="form-control" id="mk_bulan" required placeholder="MK Bulan">
+                                                            <label for="gaji_baru">Gaji Pokok Baru</label>
+                                                            <input type="text" name="gaji_baru" class="form-control" id="gaji_baru" required placeholder="Gaji Pokok Baru">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="keterangan">Keterangan</label>
-                                                            <input type="text" name="keterangan" class="form-control" id="keterangan" required placeholder="Keterangan">
+                                                            <label for="masa_kerja_baru">Berdasarkan Masa Kerja</label>
+                                                            <input type="text" name="masa_kerja_baru" class="form-control" id="masa_kerja_baru" required placeholder="Berdasarkan Masa Kerja">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="golongan">Golongan</label>
+                                                            <input type="text" name="golongan" class="form-control" id="golongan" required placeholder="Golongan">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mulai_berlaku">Mulai Berlaku</label>
+                                                            <input type="date" name="mulai_berlaku" class="form-control" id="mulai_berlaku" required placeholder="Mulai Berlaku">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="kenaikan_gaji">Kenaikan Gaji Yang Akan Datang</label>
+                                                            <input type="date" name="kenaikan_gaji" class="form-control" id="kenaikan_gaji" required placeholder="Berdasarkan Masa Kerja">
                                                         </div>
                                                     </div>
                                                 </div>

@@ -1,17 +1,23 @@
 <?php
 include "../../config.php";
 if (isset($_POST['simpan'])) {
-    $nip = $_POST['nip'];
     $id_kgb = $_POST['id_kgb'];
-    $no_sk = $_POST['no_sk'];
-    $tmt_sk = $_POST['tmt_sk'];
-    $mk_tahun = $_POST['mk_tahun'];
-    $mk_bulan = $_POST['mk_bulan'];
-    $keterangan = $_POST['keterangan'];
-    $tgl_sk = date('Y-m-d', strtotime($_POST['tgl_sk']));
+    $nip = $_POST['nip'];
+    $nomor = $_POST['nomor'];
+    $gaji_lama = $_POST['gaji_lama'];
+    $no_lama = $_POST['no_lama'];
+    $masa_kerja_lama = $_POST['masa_kerja_lama'];
+    $gaji_baru = $_POST['gaji_baru'];
+    $masa_kerja_baru = $_POST['masa_kerja_baru'];
+    $golongan = $_POST['golongan'];
+    $tgl_baru = date('Y-m-d', strtotime($_POST['tgl_baru']));
+    $tgl_lama = date('Y-m-d', strtotime($_POST['tgl_lama']));
+    $tgl_gaji_lama = date('Y-m-d', strtotime($_POST['tgl_gaji_lama']));
+    $mulai_berlaku = date('Y-m-d', strtotime($_POST['mulai_berlaku']));
+    $kenaikan_gaji = date('Y-m-d', strtotime($_POST['kenaikan_gaji']));
 
 
-    $sql = mysqli_query($koneksi, "UPDATE kgb SET nip='$nip',no_sk='$no_sk',tgl_sk='$tgl_sk',tmt_sk='$tmt_sk',mk_tahun='$mk_tahun',mk_bulan='$mk_bulan',keterangan='$keterangan' where id_kgb='$id_kgb'") or die(mysqli_error($koneksi));
+    $sql = mysqli_query($koneksi, "UPDATE kgb SET nip='$nip',nomor='$nomor',tgl_baru='$tgl_baru',gaji_lama='$gaji_lama',tgl_lama='$tgl_lama',no_lama='$no_lama',tgl_gaji_lama='$tgl_gaji_lama',masa_kerja_lama='$masa_kerja_lama',gaji_baru='$gaji_baru',masa_kerja_baru='$masa_kerja_baru',golongan='$golongan',mulai_berlaku='$mulai_berlaku',kenaikan_gaji='$kenaikan_gaji' where id_kgb='$id_kgb'") or die(mysqli_error($koneksi));
     if ($sql) {
         echo "<script language='javascript'>alert('Data Berhasil Disimpan'); document.location='index.php';</script>";
     } else {

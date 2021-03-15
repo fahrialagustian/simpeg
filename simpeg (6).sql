@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Mar 2021 pada 09.44
+-- Waktu pembuatan: 15 Mar 2021 pada 12.52
 -- Versi server: 10.4.6-MariaDB
 -- Versi PHP: 7.3.8
 
@@ -260,7 +260,8 @@ CREATE TABLE `kgb` (
 --
 
 INSERT INTO `kgb` (`id_kgb`, `nip`, `nomor`, `tgl_baru`, `gaji_lama`, `tgl_lama`, `no_lama`, `tgl_gaji_lama`, `masa_kerja_lama`, `gaji_baru`, `masa_kerja_baru`, `golongan`, `mulai_berlaku`, `kenaikan_gaji`) VALUES
-(1, '123456789545453423', '067/Mts.17.11-4/KP.07.2/08/2020', '2020-12-01', 3315900, '2018-03-01', '127/Mts.17.11-4/Kp.07.1/11/2018', '2018-03-01', '14 tahun 00 bulan', 3591200, '16 tahun 0 bulan', 'III/c', '2020-12-01', '2022-12-01');
+(1, '123456789545453423', '067/Mts.17.11-4/KP.07.2/08/2020', '2020-12-01', 3315900, '2018-03-01', '127/Mts.17.11-4/Kp.07.1/11/2018', '2018-03-01', '14 tahun 00 bulan', 3591200, '16 tahun 0 bulan', 'III/c', '2020-12-01', '2021-04-06'),
+(3, '351651651616116161', '800/105/SET-UP/II/2021', '2019-05-06', 300000, '2019-05-06', '800/105/SET-UP/II/2021', '2019-01-01', '14 tahun 00 bulan', 5000000, '16 tahun 00 bulan', 'II A', '2021-12-01', '2023-12-01');
 
 -- --------------------------------------------------------
 
@@ -610,7 +611,7 @@ ALTER TABLE `keterangan_absen`
 -- AUTO_INCREMENT untuk tabel `kgb`
 --
 ALTER TABLE `kgb`
-  MODIFY `id_kgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_kgb` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT untuk tabel `pelatihan`
