@@ -1,4 +1,90 @@
 <?php
+if (isset($_GET['cetak'])) {
+    include '../../config.php';
+    include '../../tgl_helper.php';
+    $data ='';
+    $no = 1;
+    $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, golongan.golongan,golongan.uang_makan,golongan.pajak from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));
+    while ($dt = mysqli_fetch_array($sql)) {
+        $nip = $dt['nip'];
+        if (isset($_GET['cetak'])) {
+            $y = $_GET['tahun'];
+            $m = $_GET['bulan'];
+            $query = mysqli_query($koneksi, "SELECT * from absen where nip='$nip' AND MONTH(tgl_absen)='$m' and Year(tgl_absen)='$y' and id_ketengan_absen='1' ");
+        } else {
+            $y = date('Y');
+            $m = date('m');
+            $query = mysqli_query($koneksi, "SELECT * from absen where nip='$nip' AND MONTH(tgl_absen)='$m' and Year(tgl_absen)='$y' and id_ketengan_absen='1' ");
+        }
+        
+            $jum = mysqli_num_rows($query);
+            $data .='<tr><td>'.$no .'</td><td>'.$dt['nama_pegawai'].'<br><small>NIP.'.$dt['nip'] .'</small></td><td style="text-align: center;">'. $dt['golongan'].'</td><td>'.$jum.'</td>  <td style="text-align: right;"> '.number_format($dt['uang_makan'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($uang_makan = $jum * $dt['uang_makan'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($pajak = $uang_makan * $dt['pajak'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($uang_makan - $pajak, 0, ",", ".") .'</td><td>'.$no.' .............................</td></tr>';
+            $no++;
+    }
+
+include '../../vendor/autoload.php';
+$html ='
+<h3 style="margin-left:30%">Daftar Perhitungan Uang Makan</h3>
+<table>
+    <tr>
+        <td>Satuan Kerja</td>
+        <td> : </td>
+        <td>MADRASAH TSANAWIYAH NEGERI 4 PELAIHARI KAB. TANAH LAUT</td>
+    </tr>
+    <tr>
+        <td>Anak Satker</td>
+        <td> : </td>
+        <td>MTsN 4 Tanah Laut</td>
+    </tr>
+    <tr>
+        <td>Periode</td>
+        <td> : </td>
+        <td>'.getBulan($m).' '.$y.'</td>
+    </tr>
+
+</table>
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh">No</th>
+    <th class="tg-baqh">Nama</th>
+    <th class="tg-baqh">Gol</th>
+    <th class="tg-baqh">Kehadiran <br>Hari Kerja</th>
+    <th class="tg-baqh">Tarif <br>Uang Makan</th>
+    <th class="tg-baqh">Jumlah<br>Kotor</th>
+    <th class="tg-baqh">Pph</th>
+    <th class="tg-baqh">Jumlah <br>Bersih</th>
+    <th class="tg-baqh">Tanda Tangan<br>No Rekening</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-baqh">1</td>
+    <td class="tg-baqh">2</td>
+    <td class="tg-baqh">3</td>
+    <td class="tg-baqh">4</td>
+    <td class="tg-baqh">5</td>
+    <td class="tg-baqh">6</td>
+    <td class="tg-baqh">7</td>
+    <td class="tg-baqh">8</td>
+    <td class="tg-baqh">9</td>
+  </tr>'.$data.'
+</tbody>
+</table>';
+    $mpdf = new \Mpdf\Mpdf();
+   $mpdf->WriteHTML($html);
+    $mpdf->Output();
+}
+                            
 include "../komponen/head.php";
 ?>
 <?php
@@ -95,11 +181,7 @@ include "../komponen/menu.php";
                             </thead>
                             <tbody>
                                 <?php
-                                if (isset($_GET['cetak'])) {
-                                    header('Location: mypage.php');
-                                    die();
-
-                                }
+                                
                                 $no = 1;
 
                                 $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, golongan.golongan,golongan.uang_makan,golongan.pajak from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));

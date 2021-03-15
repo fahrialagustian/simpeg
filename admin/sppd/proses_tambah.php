@@ -21,7 +21,7 @@ if (isset($_POST['simpan'])) {
     $tanggal2 = new DateTime($tgl_pulang);
     $perbedaan = $tanggal2->diff($tanggal1)->format("%a");
     $lama = $perbedaan + 1;
-    $no_sppd = $no_urut."/Mts.17.11-4/KU.01.1/".date('m')."/".date('y');
+    $no_sppd = $no_urut."/Mts.17.11-4/KU.01.1/".date('m')."/".date('Y');
 
 
     $sql = mysqli_query($koneksi, "INSERT INTO sppd VALUES('','$nip','$no_sppd','$no_urut','$tgl_buat','$maksud','$alat','$tujuan','$dari','$tgl_berangkat','$tgl_pulang','$lama','$anggaran','$instansi','$mata_anggaran','$status','$keterangan')") or die(mysqli_error($koneksi));

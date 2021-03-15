@@ -62,7 +62,7 @@ include "../komponen/menu.php";
                                                 <?php
                                                 if ($dt['status'] == 'Konfirmasi') :
                                                 ?>
-                                                <a href="print.php?id=<?php echo  $dt['id_sppd'] ?>"><button class="btn btn-info btn-sm"><i class="fa fa-print"></i> Print</button></a>
+                                                <a href="cetak_sppd.php?id=<?php echo  $dt['id_sppd'] ?>"><button class="btn btn-info btn-sm"><i class="fa fa-print"></i> Print</button></a>
                                                 <?php
                                                 endif;
                                                 if($dt['status'] !='Konfirmasi'):
