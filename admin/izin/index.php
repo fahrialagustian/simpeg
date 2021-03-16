@@ -32,80 +32,111 @@ include "../komponen/menu.php";
                 <div class="card">
 
                     <div class="card-header">
-                        <a href="tambah_izin.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> Izin</button></a>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <table id="example1" class="table table-bordered  table-striped">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Pegawai</th>
-                                    <th>Tanggal Awal</th>
-                                    <th>Tanggal Akhir</th>
-                                    <th>Alasan</th>
-                                    <th>Status</th>
-                                    <th>Keterangan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                $no = 1;
+                        <div class="card-body">
+                            <div class="row">
 
-                                $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, izin.alasan,izin.tgl_awal,izin.tgl_akhir,izin.keterangan,izin.status,izin.id_izin, izin.tgl_buat from pegawai join izin on pegawai.nip=izin.nip ORDER BY izin.tgl_buat DESC") or die(mysqli_error($koneksi));
+                                <div class="col-3">
+                                    <form method="GET" action="">
+                                        <div class="form-group">
+                                            <select class="form-control select2" name="status" style="width: 100%;">
+                                                <option selected="selected" disabled>--Pilih Status--</option>
+                                                    <option value="Proses">Proses</option>
+                                                    <option value="Acc">Acc</option>
+                                                    <option value="Tolak">Tolak</option>
+                                                    <option value="">Semua</option>
+                                            </select>
+                                        </div>
+                                </div>
+                                <div class="col-5">
+                                    <button name="filter" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
+                                    <a href="tambah_izin.php"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Izin</button></a>
+                                </div>
+                                </form>
+                            </div>
 
-                                while ($dt = mysqli_fetch_array($sql)) {
-                                ?>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered  table-striped">
+                                <thead>
                                     <tr>
-                                        <td><?php echo $no++ ?></td>
-                                        <td><?php echo $dt['nama_pegawai'] ?><br><small>NIP. <?php echo $dt['nip'] ?></small></td>
-                                        <td><?php echo tgl_indo($dt['tgl_awal']) ?></td>
-                                        <td><?php echo tgl_indo($dt['tgl_akhir']) ?></td>
-                                        <td><?php echo $dt['alasan'] ?></td>
-                                        <td><?php echo $dt['status'] ?></td>
-                                        <td><?php echo $dt['keterangan'] ?></td>
-                                        <td>
-                                            <?php if ($dt['status'] == 'Proses' or $dt['status'] == 'Tolak') :  ?>
-                                                <center>
-                                                    <a href="ubah_izin.php?id=<?php echo $dt['id_izin'] ?>"><button class="btn btn-sm btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
-
-                                                    <a onclick="return konfirmasi();" href="hapus_izin.php?id=<?php echo $dt['id_izin'] ?>"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
-                                                </center>
-                                            <?php endif; ?>
-
-                                            <?php if ($dt['status'] == 'Acc') :  ?>
-                                                <center>
-                                                    <a target="_blank" href="cetak_izin.php?id=<?php echo $dt['id_izin'] ?>"><button class="btn btn-sm btn-primary"><i class="fa fa-print"></i> Cetak</button></a>
-                                                </center>
-                                            <?php endif; ?>
-                                        </td>
+                                        <th>No</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Tanggal Awal</th>
+                                        <th>Tanggal Akhir</th>
+                                        <th>Alasan</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
                                     </tr>
-                                <?php
-                                }
-                                ?>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Nama Pegawai</th>
-                                    <th>Tanggal Awal</th>
-                                    <th>Tanggal Akhir</th>
-                                    <th>Alasan</th>
-                                    <th>Status</th>
-                                    <th>Keterangan</th>
-                                    <th>Aksi</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $no = 1;
+                                    if(isset($_GET['filter'])){
+                                        $status = $_GET['status'];
+                                        if ($status =='') {
+                                            $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, izin.alasan,izin.tgl_awal,izin.tgl_akhir,izin.keterangan,izin.status,izin.id_izin, izin.tgl_buat from pegawai join izin on pegawai.nip=izin.nip ORDER BY izin.tgl_buat DESC") or die(mysqli_error($koneksi));
+                                        } else {
+                                            $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, izin.alasan,izin.tgl_awal,izin.tgl_akhir,izin.keterangan,izin.status,izin.id_izin, izin.tgl_buat from pegawai join izin on pegawai.nip=izin.nip where izin.status='$status' ORDER BY izin.tgl_buat DESC") or die(mysqli_error($koneksi));
+                                        }
+                                        
+                                    }else{
+                                        $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, izin.alasan,izin.tgl_awal,izin.tgl_akhir,izin.keterangan,izin.status,izin.id_izin, izin.tgl_buat from pegawai join izin on pegawai.nip=izin.nip ORDER BY izin.tgl_buat DESC") or die(mysqli_error($koneksi));
+                                    }
+                                    
+
+                                    while ($dt = mysqli_fetch_array($sql)) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $no++ ?></td>
+                                            <td><?php echo $dt['nama_pegawai'] ?><br><small>NIP. <?php echo $dt['nip'] ?></small></td>
+                                            <td><?php echo tgl_indo($dt['tgl_awal']) ?></td>
+                                            <td><?php echo tgl_indo($dt['tgl_akhir']) ?></td>
+                                            <td><?php echo $dt['alasan'] ?></td>
+                                            <td><?php echo $dt['status'] ?></td>
+                                            <td><?php echo $dt['keterangan'] ?></td>
+                                            <td>
+                                                <?php if ($dt['status'] == 'Proses' or $dt['status'] == 'Tolak') :  ?>
+                                                    <center>
+                                                        <a href="ubah_izin.php?id=<?php echo $dt['id_izin'] ?>"><button class="btn btn-sm btn-success"><i class="fa fa-edit"></i> Ubah</button></a>
+
+                                                        <a onclick="return konfirmasi();" href="hapus_izin.php?id=<?php echo $dt['id_izin'] ?>"><button class="btn btn-sm btn-danger"><i class="fa fa-trash"></i> Hapus</button></a>
+                                                    </center>
+                                                <?php endif; ?>
+
+                                                <?php if ($dt['status'] == 'Acc') :  ?>
+                                                    <center>
+                                                        <a target="_blank" href="cetak_izin.php?id=<?php echo $dt['id_izin'] ?>"><button class="btn btn-sm btn-primary"><i class="fa fa-print"></i> Cetak</button></a>
+                                                    </center>
+                                                <?php endif; ?>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Nama Pegawai</th>
+                                        <th>Tanggal Awal</th>
+                                        <th>Tanggal Akhir</th>
+                                        <th>Alasan</th>
+                                        <th>Status</th>
+                                        <th>Keterangan</th>
+                                        <th>Aksi</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
+                    <!-- /.card -->
                 </div>
-                <!-- /.card -->
+                <!-- /.col -->
             </div>
-            <!-- /.col -->
-        </div>
-        <!-- /.row -->
+            <!-- /.row -->
     </section>
     <!-- /.content -->
 </div>

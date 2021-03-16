@@ -24,11 +24,28 @@ if($jumHari == 31){
 }
 // $pdf->Cell(20, 6, 'Pelaihari, ', 0, 1, 'C');
 // $pdf->ln(10);
-$pdf->Cell($panjang, 6, 'REKAP ABSEN BULAN ' . strtoupper(getBulan($bulan)) . " " . $tahun, 0, 0, 'C');
+$pdf->SetFont('Arial', '', 12);
+$pdf->Image('logo.jpg', 20, 7, 30);
+
+$pdf->Cell(320, 5, 'KEMENTRIAN AGAMA RI', 0, 1, 'C');
+$pdf->Cell(320, 5, 'KANTOR KEMENTERIAN AGAMA KAB. TANAH LAUT', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(320, 5, 'MADRASAH TSANAWIYAH NEGERI 4 TANAH LAUT', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(320, 5, 'Jl. Pengeran Antasari Telp. (5012) 21695 Pelaihari', 0, 1, 'C');
+$pdf->Cell(320, 5, 'Kab. Tanah Laut', 0, 1, 'C');
+$pdf->Cell(320, 5, 'Email : mtsn4pelaihari@gmail.com', 0, 1, 'C');
+$pdf->SetLineWidth(1);
+$pdf->Line(10, 40, 320, 40);
+$pdf->SetLineWidth(0);
+$pdf->Line(10, 41, 320, 41);
+
+$pdf->ln(5);
+$pdf->Cell(320, 6, 'REKAP ABSEN BULAN ' . strtoupper(getBulan($bulan)) . " " . $tahun, 0, 0, 'C');
 $pdf->ln(10);
 $pdf->SetFont('Arial', '', 8);
 
-$y = 31;
+$y = 66;
 $jum = 10;
 $j = 1;
 while ($dt =mysqli_fetch_array($sql)) {
@@ -38,19 +55,73 @@ while ($dt =mysqli_fetch_array($sql)) {
     if($j % 4 == 0){
         
         if($j % 4 == 0){
-            $y = 31;
+            $y = 66;
         }
         else{
             $y = $y;
         }
             
         $pdf->AddPage();
-        $pdf->ln(10);
         $pdf->SetFont('Arial', '', 12);
-        $pdf->Cell($panjang, 6, 'REKAP ABSEN BULAN '.strtoupper(date('F',strtotime($bulan)))." ".$tahun, 0, 0, 'C');
+        $pdf->Image('logo.jpg', 20, 7, 30);
+
+        $pdf->Cell(320, 5,
+            'KEMENTRIAN AGAMA RI',
+            0,
+            1,
+            'C'
+        );
+        $pdf->Cell(320, 5,
+            'KANTOR KEMENTERIAN AGAMA KAB. TANAH LAUT',
+            0,
+            1,
+            'C'
+        );
+        $pdf->SetFont('Arial', 'B', 10);
+        $pdf->Cell(320, 5,
+            'MADRASAH TSANAWIYAH NEGERI 4 TANAH LAUT',
+            0,
+            1,
+            'C'
+        );
+        $pdf->SetFont('Arial', 'B', 9);
+        $pdf->Cell(320, 5,
+            'Jl. Pengeran Antasari Telp. (5012) 21695 Pelaihari',
+            0,
+            1,
+            'C'
+        );
+        $pdf->Cell(320, 5,
+            'Kab. Tanah Laut',
+            0,
+            1,
+            'C'
+        );
+        $pdf->Cell(320, 5,
+            'Email : mtsn4pelaihari@gmail.com',
+            0,
+            1,
+            'C'
+        );
+        $pdf->SetLineWidth(1);
+        $pdf->Line(10, 40,
+            320,
+            40
+        );
+        $pdf->SetLineWidth(0);
+        $pdf->Line(10, 41,
+            320,
+            41
+        );
+
+        $pdf->ln(5);
+        $pdf->Cell(320, 6,
+            'REKAP ABSEN BULAN ' . strtoupper(getBulan($bulan)) . " " . $tahun,
+            0,
+            0,
+            'C'
+        );
         $pdf->ln(10);
-        $pdf->SetFont('Arial', '', 11);
-        $pdf->Cell($panjang, 6, $dt['nip']." | ".$dt['nama_pegawai'], 1, 0, 'L');
         $pdf->SetFont('Arial', '', 8);
         $pdf->ln();
         for ($i = 0; $i < $jumHari; $i++) {
@@ -116,6 +187,21 @@ while ($dt =mysqli_fetch_array($sql)) {
     $j++;
 }
 
+
+$query = mysqli_query($koneksi, "SELECT * FROM pegawai where id_jabatan='3'") or die(mysqli_error($koneksi));
+$kepala = mysqli_fetch_array($query);
+
+$pdf->Ln(10);
+$pdf->Cell(250);
+$pdf->Cell(30,5,'Pelaihari, '.tgl_indo(date('Y-m-d')),0,0,'C');
+
+
+$pdf->Ln(15);
+$pdf->Cell(250);
+$pdf->Cell(30, 5, $kepala['nama_pegawai'], 0, 0, 'C');
+$pdf->Ln();
+$pdf->Cell(250);
+$pdf->Cell(30, 5, 'NIP. ' . $kepala['nip'], 0, 0, 'C');
 
 $nama = "Rekap Absen Bulan ". getBulan($bulan)." ".$tahun.".pdf";
 

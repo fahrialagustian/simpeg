@@ -30,10 +30,51 @@ include "../komponen/menu.php";
             <div class="col-12">
 
                 <div class="card">
+                        
                     <div class="card-header">
-                        <a href="tambah_kgb.php"><button class="btn btn-primary"><i class="fa fa-plus"></i> KGB</button></a>
+                    <div class="row">
 
-                        <a href="rekomendasi.php"><button class="btn btn-success"><i class="fa fa-plus"></i> Rekomendasi</button></a>
+                            <div class="col-3">
+                                <form method="GET" action="">
+                                    <div class="form-group">
+                                        <select class="form-control select2"  name="bulan" style="width: 100%;">
+                                            <option selected="selected" disabled>--Pilih Bulan--</option>
+                                            <?php
+                                            $sql = mysqli_query($koneksi, "SELECT MONTH(tgl_baru) as bulan from kgb GROUP by MONTH(tgl_baru) ASC") or die(mysqli_error($koneksi));
+                                            while ($bulan = mysqli_fetch_array($sql)) {
+                                            ?>
+                                                <option value="<?php echo $bulan['bulan'] ?>"> <?php echo getBulan($bulan['bulan']) ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <select class="form-control select2" name="tahun" style="width: 100%;">
+                                        <option selected="selected" disabled>--Pilih Tahun--</option>
+                                        <?php
+                                        $sql = mysqli_query($koneksi, "SELECT Year(tgl_baru) as tahun from kgb GROUP by Year(tgl_baru) ASC") or die(mysqli_error($koneksi));
+                                        while ($tahun = mysqli_fetch_array($sql)) {
+                                        ?>
+                                            <option value="<?php echo $tahun['tahun'] ?>"> <?php echo $tahun['tahun'] ?></option>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <button name="filter" class="btn btn-success"><i class="fa fa-search"></i> Filter</button>
+
+                                <a href="tambah_kgb.php"><button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> KGB</button></a>
+
+                                <a href="rekomendasi.php"><button type="button" class="btn btn-success"><i class="fa fa-plus"></i> Rekomendasi</button></a>
+                            </div>
+                            </form>
+                        </div>
+                        
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body ">
@@ -52,8 +93,18 @@ include "../komponen/menu.php";
                             </thead>
                             <tbody>
                                 <?php
+
                                 $no = 1;
-                                $sql = mysqli_query($koneksi,"SELECT pegawai.nip,pegawai.nama_pegawai, jabatan.jabatan,jabatan.id_jabatan,golongan.id_golongan,golongan.golongan,kgb.id_kgb, kgb.nomor,kgb.gaji_lama,kgb.tgl_lama,kgb.no_lama,kgb.tgl_gaji_lama,kgb.masa_kerja_lama,kgb.gaji_baru,kgb.masa_kerja_baru,kgb.golongan,kgb.mulai_berlaku,kgb.kenaikan_gaji,kgb.tgl_baru FROM jabatan JOIN pegawai on jabatan.id_jabatan=pegawai.id_jabatan join golongan on golongan.id_golongan=pegawai.id_golongan JOIN kgb on pegawai.nip=kgb.nip order by kgb.kenaikan_gaji DESC") or die(mysqli_error($koneksi));
+                                if(isset($_GET['filter'])){
+                                    $m = $_GET['bulan'];
+                                    $y = $_GET['tahun'];
+
+                                    $sql = mysqli_query($koneksi,"SELECT pegawai.nip,pegawai.nama_pegawai, jabatan.jabatan,jabatan.id_jabatan,golongan.id_golongan,golongan.golongan,kgb.id_kgb, kgb.nomor,kgb.gaji_lama,kgb.tgl_lama,kgb.no_lama,kgb.tgl_gaji_lama,kgb.masa_kerja_lama,kgb.gaji_baru,kgb.masa_kerja_baru,kgb.golongan,kgb.mulai_berlaku,kgb.kenaikan_gaji,kgb.tgl_baru FROM jabatan JOIN pegawai on jabatan.id_jabatan=pegawai.id_jabatan join golongan on golongan.id_golongan=pegawai.id_golongan JOIN kgb on pegawai.nip=kgb.nip where MONTH(kgb.tgl_baru)='$m' and YEAR(kgb.tgl_baru)='$y' order by kgb.kenaikan_gaji DESC") or die(mysqli_error($koneksi));
+                                    
+                                }else{
+                                    $sql = mysqli_query($koneksi,"SELECT pegawai.nip,pegawai.nama_pegawai, jabatan.jabatan,jabatan.id_jabatan,golongan.id_golongan,golongan.golongan,kgb.id_kgb, kgb.nomor,kgb.gaji_lama,kgb.tgl_lama,kgb.no_lama,kgb.tgl_gaji_lama,kgb.masa_kerja_lama,kgb.gaji_baru,kgb.masa_kerja_baru,kgb.golongan,kgb.mulai_berlaku,kgb.kenaikan_gaji,kgb.tgl_baru FROM jabatan JOIN pegawai on jabatan.id_jabatan=pegawai.id_jabatan join golongan on golongan.id_golongan=pegawai.id_golongan JOIN kgb on pegawai.nip=kgb.nip order by kgb.kenaikan_gaji DESC") or die(mysqli_error($koneksi));
+                                }
+                                
                                 while ($dt = mysqli_fetch_array($sql)) {
                                     
                                 ?>

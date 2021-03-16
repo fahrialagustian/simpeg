@@ -45,7 +45,7 @@ include "../komponen/menu.php";
                                             $sql = mysqli_query($koneksi, "SELECT MONTH(tgl_absen) as bulan from absen GROUP by MONTH(tgl_absen) ASC") or die(mysqli_error($koneksi));
                                             while ($bulan = mysqli_fetch_array($sql)) {
                                             ?>
-                                                <option value="<?php echo $bulan['bulan'] ?>"> <?php echo $bulan['bulan'] ?></option>
+                                                <option value="<?php echo $bulan['bulan'] ?>"> <?php echo getBulan($bulan['bulan']) ?></option>
                                             <?php
                                             }
                                             ?>

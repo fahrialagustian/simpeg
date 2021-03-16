@@ -49,7 +49,7 @@ include "../komponen/menu.php";
                                             <div class="card-body">
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Nama Jabatan</label>
-                                                    <input type="text" name="jabatan" class="form-control" id="exampleInputEmail1" placeholder="Nama Jabatan">
+                                                    <input type="text" name="jabatan" class="form-control" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" id="exampleInputEmail1" placeholder="Nama Jabatan">
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->

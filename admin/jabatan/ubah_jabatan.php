@@ -56,7 +56,7 @@ include "../komponen/menu.php";
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Nama Jabatan</label>
                                                     <input type="hidden" name="id_jabatan" class="form-control" value="<?php echo $dt['id_jabatan'] ?>">
-                                                    <input type="text" name="jabatan" class="form-control" value="<?php echo $dt['jabatan'] ?>" id="exampleInputEmail1" placeholder="Nama Jabatan">
+                                                    <input type="text" name="jabatan" class="form-control" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" value="<?php echo $dt['jabatan'] ?>" id="exampleInputEmail1" placeholder="Nama Jabatan">
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->

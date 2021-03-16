@@ -17,6 +17,23 @@ $pdf = new FPDF('P', 'mm', array(210, 330));
 // membuat halaman baru
 $pdf->AddPage();
 // setting jenis font yang akan digunakan
+$pdf->SetFont('Arial', '', 12);
+$pdf->Image('logo.jpg', 15, 7, 30);
+
+$pdf->Cell(190, 5, 'KEMENTRIAN AGAMA RI', 0, 1, 'C');
+$pdf->Cell(190, 5, 'KANTOR KEMENTERIAN AGAMA KAB. TANAH LAUT', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(190, 5, 'MADRASAH TSANAWIYAH NEGERI 4 TANAH LAUT', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(190, 5, 'Jl. Pengeran Antasari Telp. (5012) 21695 Pelaihari', 0, 1, 'C');
+$pdf->Cell(190, 5, 'Kab. Tanah Laut', 0, 1, 'C');
+$pdf->Cell(190, 5, 'Email : mtsn4pelaihari@gmail.com', 0, 1, 'C');
+
+$pdf->SetLineWidth(1);
+$pdf->Line(10, 40, 200, 40);
+$pdf->SetLineWidth(0);
+$pdf->Line(10, 41, 200, 41);
+
 $pdf->SetFont('Arial', '', 11);
 // mencetak string 
 

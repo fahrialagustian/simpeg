@@ -2,6 +2,9 @@
 if (isset($_GET['cetak'])) {
     include '../../config.php';
     include '../../tgl_helper.php';
+    $query = mysqli_query($koneksi, "SELECT * FROM pegawai where id_jabatan='3'") or die(mysqli_error($koneksi));
+    $kepala = mysqli_fetch_array($query);
+
     $data ='';
     $no = 1;
     $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, golongan.golongan,golongan.uang_makan,golongan.pajak from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));
@@ -23,7 +26,24 @@ if (isset($_GET['cetak'])) {
     }
 
 include '../../vendor/autoload.php';
-$html ='
+$html = '
+<table>
+    <tr>
+        <td><img style="width:15%" src="logo.jpg"></td>
+        <td style="text-align:center; width:570px">
+            <h4>KEMENTERIAN AGAMA RI</h4>
+            <h4>KANTOR KEMENTERIAN AGAMA KAB. TANAH LAUT</h4>
+            <h5>MADRASAH TSANAWIYAH NEGERI 4 TANAH LAUT</h5>
+            <p>Jl. Pengeran Antasari Telp. (5012) 21695 Pelaihari</p>
+            <p>Kab. Tanah Laut</p>
+            <p>Email : mtsn4pelaihari@gmail.com</p>
+        
+        </td>
+    </tr>
+</table>
+<hr size="100px" width="500px">
+
+
 <h3 style="margin-left:30%">Daftar Perhitungan Uang Makan</h3>
 <table>
     <tr>
@@ -77,9 +97,29 @@ $html ='
     <td class="tg-baqh">7</td>
     <td class="tg-baqh">8</td>
     <td class="tg-baqh">9</td>
-  </tr>'.$data.'
+  </tr>'.$data. '
 </tbody>
-</table>';
+</table>
+<br>
+<br><br>
+<table >
+    <tr>
+        <td style="text-align:center; width:90%"></td>
+        <td style="text-align:center; width:50%">
+            <p>Pelaihari,'.tgl_indo(date('Y-m-d')). '</p>
+            <p>Kepala Sekolah</p>
+            <p>MTsN 4 TANAH LAUT</p>
+            <br>
+            <br>
+            <br>
+            <p>'.$kepala['nama_pegawai'].'</p>
+            <p>NIP. '. $kepala['nip'].'</p>
+        
+        </td>
+    </tr>
+</table>
+
+';
     $mpdf = new \Mpdf\Mpdf();
    $mpdf->WriteHTML($html);
     $mpdf->Output();
@@ -131,7 +171,7 @@ include "../komponen/menu.php";
                                             $sql = mysqli_query($koneksi, "SELECT MONTH(tgl_absen) as bulan from absen GROUP by MONTH(tgl_absen) ASC") or die(mysqli_error($koneksi));
                                             while ($bulan = mysqli_fetch_array($sql)) {
                                             ?>
-                                                <option value="<?php echo $bulan['bulan'] ?>"> <?php echo $bulan['bulan'] ?></option>
+                                                <option value="<?php echo $bulan['bulan'] ?>"> <?php echo getBulan($bulan['bulan']) ?></option>
                                             <?php
                                             }
                                             ?>

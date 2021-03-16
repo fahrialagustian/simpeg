@@ -56,15 +56,15 @@ include "../komponen/menu.php";
                                                 <div class="form-group">
                                                     <label for="exampleInputEmail1">Nama Golongan</label>
                                                     <input type="hidden" name="id_golongan" class="form-control" value="<?php echo $dt['id_golongan'] ?>">
-                                                    <input type="text" name="golongan" class="form-control" value="<?php echo $dt['golongan'] ?>" id="exampleInputEmail1" placeholder="Nama Golongan">
+                                                    <input type="text" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" name="golongan" class="form-control" value="<?php echo $dt['golongan'] ?>" id="exampleInputEmail1" placeholder="Nama Golongan">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="uang_makan">Uang Makan</label>
-                                                    <input type="text" value="<?php echo $dt['uang_makan'] ?>" name="uang_makan" class="form-control" id="uang_makan" placeholder="Rp.">
+                                                    <input type="text" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" value="<?php echo $dt['uang_makan'] ?>" name="uang_makan" class="form-control" id="uang_makan" placeholder="Rp.">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="Pajak">Pajak</label>
-                                                    <input type="text" value="<?php echo $dt['pajak']*100 ?>" name="pajak" class="form-control" id="Pajak" placeholder="Pajak">
+                                                    <input type="text" required oninvalid="this.setCustomValidity('data tidak boleh kosong')" oninput="setCustomValidity('')" value="<?php echo $dt['pajak']*100 ?>" name="pajak" class="form-control" id="Pajak" placeholder="Pajak">
                                                 </div>
                                             </div>
                                             <!-- /.card-body -->

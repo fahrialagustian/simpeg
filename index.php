@@ -35,7 +35,7 @@
                 </div>
                 <form action="proses_login.php" method="post">
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" name="nip" placeholder="NIP">
+                        <input type="text" class="form-control" title="Isi NIP dengan benar" name="nip" required oninvalid="this.setCustomValidity('NIP tidak boleh kosong')" oninput="setCustomValidity('')"   placeholder="NIP">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -43,7 +43,7 @@
                         </div>
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" class="form-control" placeholder="Password">
+                        <input type="password" title="Isi Password dengan benar" name="password" class="form-control" required oninvalid="this.setCustomValidity('Password tidak boleh kosong')" oninput="setCustomValidity('')" placeholder="Password">
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
