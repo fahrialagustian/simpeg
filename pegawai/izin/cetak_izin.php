@@ -6,6 +6,7 @@ $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai,golongan.
 
 $dt = mysqli_fetch_array($sql);
 
+
 $tanggal1 = new DateTime($dt['tgl_awal']);
 $tanggal2 = new DateTime($dt['tgl_akhir']);
 $perbedaan = $tanggal2->diff($tanggal1)->format("%a");
@@ -16,6 +17,23 @@ $pdf = new FPDF('P', 'mm', array(210, 330));
 // membuat halaman baru
 $pdf->AddPage();
 // setting jenis font yang akan digunakan
+$pdf->SetFont('Arial', '', 12);
+$pdf->Image('logo.jpg', 15, 7, 30);
+
+$pdf->Cell(190, 5, 'KEMENTRIAN AGAMA RI', 0, 1, 'C');
+$pdf->Cell(190, 5, 'KANTOR KEMENTERIAN AGAMA KAB. TANAH LAUT', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 10);
+$pdf->Cell(190, 5, 'MADRASAH TSANAWIYAH NEGERI 4 TANAH LAUT', 0, 1, 'C');
+$pdf->SetFont('Arial', 'B', 9);
+$pdf->Cell(190, 5, 'Jl. Pengeran Antasari Telp. (5012) 21695 Pelaihari', 0, 1, 'C');
+$pdf->Cell(190, 5, 'Kab. Tanah Laut', 0, 1, 'C');
+$pdf->Cell(190, 5, 'Email : mtsn4pelaihari@gmail.com', 0, 1, 'C');
+
+$pdf->SetLineWidth(1);
+$pdf->Line(10, 40, 200, 40);
+$pdf->SetLineWidth(0);
+$pdf->Line(10, 41, 200, 41);
+
 $pdf->SetFont('Arial', '', 11);
 // mencetak string 
 
@@ -104,7 +122,7 @@ $pdf->ln();
 $pdf->ln();
 $pdf->Cell(30, 3, '', 0, 0, 'L');
 $pdf->Cell(5, 3, ' ', 0, 0, 'L');
-$pdf->MultiCell(130, 7, 'Mengajukan izin '.$dt['alasan']. ' Selama ' . $lama . ' hari kerja dari tanggal '.tgl_indo($dt['tgl_awal']).' sampai tanggal '.tgl_indo($dt['tgl_akhir']), 0, 'L');
+$pdf->MultiCell(130, 7, 'Mengajukan izin '.$dt['alasan']. ' Selama' . $lama . ' hari kerja dari tanggal '.tgl_indo($dt['tgl_awal']).' sampai tanggal '.tgl_indo($dt['tgl_akhir']), 0, 'L');
 
 
 $pdf->ln();
@@ -142,4 +160,3 @@ $pdf->Cell(10, 6, 'NIP. '.strtoupper($dt['nip']), 0, 1, 'C');
 $nama = "Surat Izin_". $dt['nama_pegawai'].".pdf";
 
 $pdf->Output("$nama", "I");
-?>
