@@ -41,7 +41,7 @@ include "../komponen/menu.php";
                                     <!-- general form elements -->
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">Tambah Data Absen</h3>
+                                            <h3 class="card-title">Ubah Data Absen</h3>
                                         </div>
                                         <!-- /.card-header -->
                                         <!-- form start -->
