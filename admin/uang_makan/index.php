@@ -7,6 +7,10 @@ if (isset($_GET['cetak'])) {
 
     $data ='';
     $no = 1;
+    $tarif =0;
+    $kotor =0;
+    $pph = 0;
+    $bersih = 0;
     $sql = mysqli_query($koneksi, "SELECT pegawai.nip,pegawai.nama_pegawai, golongan.golongan,golongan.uang_makan,golongan.pajak from golongan join pegawai on golongan.id_golongan=pegawai.id_golongan ORDER BY pegawai.nama_pegawai ASC") or die(mysqli_error($koneksi));
     while ($dt = mysqli_fetch_array($sql)) {
         $nip = $dt['nip'];
@@ -21,8 +25,13 @@ if (isset($_GET['cetak'])) {
         }
         
             $jum = mysqli_num_rows($query);
-            $data .='<tr><td>'.$no .'</td><td>'.$dt['nama_pegawai'].'<br><small>NIP.'.$dt['nip'] .'</small></td><td style="text-align: center;">'. $dt['golongan'].'</td><td>'.$jum.'</td>  <td style="text-align: right;"> '.number_format($dt['uang_makan'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($uang_makan = $jum * $dt['uang_makan'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($pajak = $uang_makan * $dt['pajak'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($uang_makan - $pajak, 0, ",", ".") .'</td><td>'.$no.' .............................</td></tr>';
+            $data .='<tr><td>'.$no .'</td><td>'.$dt['nama_pegawai'].'<br><small>NIP.'.$dt['nip'] .'</small></td><td style="text-align: center;">'. $dt['golongan'].'</td><td  style="text-align:center;">'.$jum.'</td>  <td style="text-align: right;"> '.number_format($dt['uang_makan'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($uang_makan = $jum * $dt['uang_makan'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($pajak = $uang_makan * $dt['pajak'], 0, ",", ".").'</td><td style="text-align: right;"> '.number_format($uang_makan - $pajak, 0, ",", ".") .'</td><td>'.$no.' .............................</td></tr>';
             $no++;
+
+            $tarif +=  $dt['uang_makan'];
+            $kotor +=   $uang_makan;
+            $pph +=  $pajak;
+            $bersih += $uang_makan - $pajak;
     }
 
 include '../../vendor/autoload.php';
@@ -98,6 +107,27 @@ $html = '
     <td class="tg-baqh">8</td>
     <td class="tg-baqh">9</td>
   </tr>'.$data. '
+  
+    <tr>
+        <td style="text-align:center;" colspan="4">
+            Total
+        </td>
+        <td style="text-align:right;">
+        '.number_format($tarif, 0, ",", ".").'
+        </td>
+        <td style="text-align:right;">
+           '.number_format($kotor, 0, ",", ".").'
+        </td>
+        <td style="text-align:right;">
+            '.number_format($pph, 0, ",", ".").'
+        </td>
+        <td style="text-align:right;">
+           '.number_format($bersih, 0, ",", ".").'
+        </td>
+        <td>
+
+        </td>
+    </tr>
 </tbody>
 </table>
 <br>
